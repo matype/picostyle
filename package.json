@@ -1,0 +1,41 @@
+{
+  "name": "picostyle",
+  "version": "0.0.0",
+  "description": "Under 1 KB CSS in JS library for Picodom",
+  "main": "dist/picostyle.js",
+  "scripts": {
+    "build": "rollup -c",
+    "prepublish": "npm run build",
+    "test": "bundlesize"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/morishitter/picostyle.git"
+  },
+  "keywords": [
+    "css-in-js",
+    "dynamic-styles",
+    "picodom"
+  ],
+  "author": "Masaaki Morishita",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/morishitter/picostyle/issues"
+  },
+  "homepage": "https://github.com/morishitter/picostyle#readme",
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.6.0",
+    "bundlesize": "^0.13.2",
+    "rollup": "^0.45.2",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-uglify": "^2.0.1"
+  },
+  "bundlesize": [
+    {
+      "path": "dist/picostyle.js",
+      "threshold": "1Kb"
+    }
+  ]
+}
