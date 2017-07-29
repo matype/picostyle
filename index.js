@@ -1,42 +1,31 @@
 var h = require("picodom").h
-
 var x = 0
-var insert = n => n
-var cache = {}
-
-if (typeof window !== "undefined") {
-  var sheet = document.head.appendChild(document.createElement("style")).sheet
-  insert = r => sheet.insertRule(r, sheet.cssRules.length)
-}
-
-var setpx = v => typeof v === "number" ? `${v}px` : v
-var propertize = s => s.replace(/[A-Z]|^ms/g, "-$&").toLowerCase()
-
-var rulize = (cn, p, v, m) => {
-  var r = `.${cn}{ ${propertize(p)}: ${setpx(v)} }`
+var i = _ => _
+var ca = {}
+var pr = s => s.replace(/[A-Z]|^ms/g, "-$&").toLowerCase()
+var ru = (cn, p, v, m) => {
+  var r = `.${cn}{${pr(p)}: ${typeof v === "number" ? `${v}px` : v}}`
   return m ? `${m}{${r}}` : r
 }
-
-function scan (o, c = "", m) {
-  return Object.keys(o).map(p => {
-    var v = o[p]
-    if (v === null) return ""
-
+var sc = (d, c = "", m) =>
+  Object.keys(d).map(p => {
+    var v = d[p]
     if (typeof v === "object") {
       var nm = /^@/.test(p) ? p : null
       var nc = nm ? c : c + p
-      return scan(v, nc, nm)
+      return sc(v, nc, nm)
     }
-
-    var key = p + v + m
-    if (cache[key]) return cache[key]
-
+    var k = p + v + m
+    if (ca[k]) return ca[k]
     var cn = "p" + (x++).toString(36)
-    insert(rulize(cn + c, p, v, m))
-    cache[key] = cn
-
+    i(ru(cn + c, p, v, m))
+    ca[k] = cn
     return cn
   }).join(" ")
+
+if (window) {
+  var sh = document.head.appendChild(document.createElement("style")).sheet
+  i = r => sh.insertRule(r, sh.cssRules.length)
 }
 
-module.exports = tag => (...args) => (_, cs) => h(tag, { class: args.map(arg => scan(arg)).join(" ") }, cs)
+module.exports = t => (...ds) => (_, cs) => h(t, { class: ds.map(d => sc(d)) }, cs)
