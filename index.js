@@ -4,61 +4,39 @@ var uid = 0
 var insert = n => n
 var cache = {}
 
-if (typeof window !== 'undefined') {
-  var sheet = document.head.appendChild(document.createElement('style')).sheet
+if (typeof window !== "undefined") {
+  var sheet = document.head.appendChild(document.createElement("style")).sheet
   insert = rule => sheet.insertRule(rule, sheet.cssRules.length)
 }
 
-function setpx (value) {
-  return typeof value === 'number' ? `${value}px` : value
+var setpx = v => typeof v === "number" ? `${v}px` : v
+var propertize = s => s.replace(/[A-Z]|^ms/g, "-$&").toLowerCase()
+
+var createRule = (cn, p, v, m) => {
+  var rule = `.${cn}{ ${propertize(p)}: ${setpx(v)} }`
+  return m ? `${m}{${rule}}` : rule
 }
 
-function hyphenate (str) {
-  return ('' + str).replace(/[A-Z]|^ms/g, '-$&').toLowerCase()
-}
+function parse (obj, child = "", m) {
+  return Object.keys(obj).map(p => {
+    var v = obj[p]
+    if (v === null) return ""
 
-function createRule (className, property, value, media) {
-  var rule = `.${className}{ ${hyphenate(property)}: ${setpx(value)} }`
-  return media ? `${media}{${rule}}` : rule
-}
-
-function parse (obj, child = '', media) {
-  if (!obj) {
-    return ''
-  }
-
-  return Object.keys(obj).map(property => {
-    var value = obj[property]
-    if (value === null) {
-      return ''
+    if (typeof v === "object") {
+      var nestedMedia = /^@/.test(p) ? p : null
+      var nestedClass = nestedMedia ? child : child + p
+      return parse(v, nestedClass, nestedMedia)
     }
 
-    if (typeof value === 'object') {
-      var m2 = /^@/.test(property) ? property : null
-      var c2 = m2 ? child : child + property
-      return parse(value, c2, m2)
-    }
+    var key = p + v + m
+    if (cache[key]) return cache[key]
 
-    var cacheKey = property + value + media
-    if (cache[cacheKey]) {
-      return cache[cacheKey]
-    }
+    var cn = "p" + (uid++).toString(36)
+    insert(createRule(cn + child, p, v, m))
+    cache[key] = cn
 
-    var className = 'p' + (uid++).toString(36)
-    var rule = createRule(className + child, property, value, media)
-    insert(rule)
-    cache[cacheKey] = className
-
-    return className
-  }).join(' ')
+    return cn
+  }).join(" ")
 }
 
-function picostyle (tag) {
-  return function (...args) {
-    return function (prop, children) {
-      return h(tag, { class: args.map(s => parse(s)).join(' ') }, children)
-    }
-  }
-}
-
-module.exports = picostyle
+module.exports = tag => (...args) => (_, children) => h(tag, { class: args.map(arg => parse(arg)).join(" ") }, children)
