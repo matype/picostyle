@@ -1,6 +1,6 @@
 {
   "name": "picostyle",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Ultra small CSS in JS library in 0.4 KB for Picodom",
   "main": "dist/picostyle.js",
   "scripts": {
