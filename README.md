@@ -2,9 +2,9 @@
 
 > Most lightweight CSS in JS library ever.
 
-[![438B gzip][gzip-badge]][bundlesize]
+[![424B gzip][gzip-badge]][bundlesize]
 
-[gzip-badge]: https://img.shields.io/badge/gzip-438%20B-brightgreen.svg
+[gzip-badge]: https://img.shields.io/badge/gzip-424%20B-brightgreen.svg
 [bundlesize]: https://github.com/siddharthkp/bundlesize
 
 <div align="center">

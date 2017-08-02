@@ -1,9 +1,10 @@
-var { h } = picodom
+var { h } = require("picodom")
 var _id = 0
-var insert = _ => _
 var cache = {}
-var hyphenate = s => s.replace(/[A-Z]|^ms/g, "-$&").toLowerCase()
+var hyphenate = str => str.replace(/[A-Z]|^ms/g, "-$&").toLowerCase()
 var setpx = value => typeof value === "number" ? `${value}px` : value
+var sheet = document.head.appendChild(document.createElement("style")).sheet
+var insert = rule => sheet.insertRule(rule, sheet.cssRules.length)
 
 var createRule = (className, property, value, media) => {
   var rule = `.${className}{${hyphenate(property)}: ${setpx(value)}}`
@@ -31,9 +32,4 @@ var parse = (decl, child = "", media) =>
     return className
   }).join(" ")
 
-if (window) {
-  var sheet = document.head.appendChild(document.createElement("style")).sheet
-  insert = rule => sheet.insertRule(rule, sheet.cssRules.length)
-}
-
-export default tag => (...decls) => (_, children) => h(tag, { class: decls.map(decl => parse(decl)) }, children)
+module.exports = tag => (...decls) => (_, children) => h(tag, { class: decls.map(decl => parse(decl)) }, children)

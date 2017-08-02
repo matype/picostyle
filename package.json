@@ -6,9 +6,11 @@
   "jsnext:main": "src/index.js",
   "module": "src/index.js",
   "scripts": {
-    "start": "webpack-dev-server",
-    "test": "npm run build && bundlesize",
-    "build": "rollup -cm -n picostyle -f umd -i src/index.js -o dist/picostyle.js"
+    "build": "rollup -cm -n picostyle -f umd -i src/index.js -o dist/picostyle.js",
+    "build:dev": "(rm -rf dist || true) && mkdir dist && npm run compress",
+    "compress": "uglifyjs src/index.js -o dist/picostyle.js -c toplevel,sequences=false -m toplevel",
+    "test": "npm run build:dev && bundlesize",
+    "start": "webpack-dev-server"
   },
   "repository": {
     "type": "git",
