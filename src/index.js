@@ -1,5 +1,4 @@
-var h = require("picodom").h
-
+var { h } = picodom
 var _id = 0
 var insert = _ => _
 var cache = {}
@@ -37,4 +36,4 @@ if (window) {
   insert = rule => sheet.insertRule(rule, sheet.cssRules.length)
 }
 
-module.exports = tag => (...decls) => (_, children) => h(tag, { class: decls.map(decl => parse(decl)) }, children)
+export default tag => (...decls) => (_, children) => h(tag, { class: decls.map(decl => parse(decl)) }, children)

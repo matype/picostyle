@@ -3,11 +3,12 @@
   "version": "0.0.2",
   "description": "Ultra small CSS in JS library in 0.4 KB for Picodom",
   "main": "dist/picostyle.js",
+  "jsnext:main": "src/index.js",
+  "module": "src/index.js",
   "scripts": {
-    "build": "(rm -rf dist || true) && mkdir dist && npm run compress",
-    "compress": "uglifyjs src/index.js -o dist/picostyle.js -c toplevel,sequences=false -m toplevel",
     "start": "webpack-dev-server",
-    "test": "npm run build && bundlesize"
+    "test": "npm run build && bundlesize",
+    "build": "rollup -cm -n picostyle -f umd -i src/index.js -o dist/picostyle.js"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,9 @@
     "babel-preset-env": "^1.6.0",
     "bundlesize": "^0.13.2",
     "picodom": "0.0.8",
+    "rollup": "^0.45.2",
+    "rollup-plugin-buble": "^0.15.0",
+    "rollup-plugin-uglify": "^2.0.1",
     "uglify-es": "^3.0.27",
     "webpack": "^3.4.1",
     "webpack-dev-server": "^2.6.1"
