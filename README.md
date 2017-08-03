@@ -2,9 +2,9 @@
 
 > Most lightweight CSS in JS library ever.
 
-[![424B gzip][gzip-badge]][bundlesize]
+[![598B gzip][gzip-badge]][bundlesize]
 
-[gzip-badge]: https://img.shields.io/badge/gzip-424%20B-brightgreen.svg
+[gzip-badge]: https://img.shields.io/badge/bundled%20&%20gzip-598%20B-brightgreen.svg
 [bundlesize]: https://github.com/siddharthkp/bundlesize
 
 <div align="center">
@@ -14,11 +14,9 @@
 </div>
 <br>
 
-Picostyle is a 0.4 KB CSS in JS library for [Picodom](https://github.com/picodom/picodom).
-
 ## Features
 
-- **🚀 Most lightweight CSS in JS library ever**: Only 0.4 KB (gzipped)
+- **🚀 Most lightweight CSS in JS library ever**: Only 0.6 KB (bundled & gzipped)
 - **⚡️ Extreme high performance**: Optimized by Virtual CSS inspired by [Styletron](https://ryantsao.com/blog/virtual-css-with-styletron)
 - **💅 Styled components**: Returns styled components like [styled-components](https://www.styled-components.com/) that everyone loves :)
 - **❤️ For Picodom**: [Picodom](https://github.com/picodom/picodom) is just 1 KB Virtual DOM builder and patch algorithm

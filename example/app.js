@@ -1,7 +1,5 @@
-var picodom = require("picodom")
-var h = picodom.h
-var patch = picodom.patch
-var ps = require("../")
+import {h, patch} from "picodom"
+import ps from "../"
 
 let element, oldNode
 
