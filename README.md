@@ -63,3 +63,5 @@ return (
 ```
 
 Perfect example with Picodom and webpack is [here](https://github.com/morishitter/picostyle/tree/master/example).
+
+[Try it online](https://codepen.io/morishitter/pen/qXaPYQ?editors=0010)! :D
