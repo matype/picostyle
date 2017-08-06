@@ -18,7 +18,7 @@ const parse = (decl, child = "", media) =>
     const value = decl[property]
     if (typeof value === "object") {
       const nextMedia = /^@/.test(property) ? property : null
-      const nextChild = nextChild ? child : child + property
+      const nextChild = child + property
       return parse(value, nextChild, nextMedia)
     }
 
