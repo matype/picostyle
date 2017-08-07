@@ -13,12 +13,18 @@ const createRule = (className, property, value, media) => {
   return media ? `${media}{${rule}}` : rule
 }
 
-const parse = (decl, child = "", media) =>
-  Object.keys(decl).map(property => {
+const parse = (decl, child = "", media) => {
+  let properties = []
+
+  for (let property in decl) {
+    properties.push(property)
+  }
+
+  return properties.map(property => {
     const value = decl[property]
     if (typeof value === "object") {
       const nextMedia = /^@/.test(property) ? property : null
-      const nextChild = child + property
+      const nextChild = nextMedia ? child : child + property
       return parse(value, nextChild, nextMedia)
     }
 
@@ -33,5 +39,6 @@ const parse = (decl, child = "", media) =>
 
     return className
   }).join(" ")
+}
 
-export default tag => (...decls) => (_, children) => h(tag, { class: decls.map(decl => parse(decl)) }, children)
+export default tag => (...decls) => (_, children) => h(tag, { class: parse(decls[0]) }, children)
