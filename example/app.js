@@ -1,5 +1,7 @@
 import {h, patch} from "picodom"
-import ps from "../"
+import picostyle from "../"
+
+const ps = picostyle(h)
 
 let element, oldNode
 

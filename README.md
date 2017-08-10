@@ -2,9 +2,9 @@
 
 > Most lightweight CSS in JS library ever.
 
-[![597B gzip][gzip-badge]][bundlesize]
+[![570B gzip][gzip-badge]][bundlesize]
 
-[gzip-badge]: https://img.shields.io/badge/bundled%20&%20gzip-597%20B-brightgreen.svg
+[gzip-badge]: https://img.shields.io/badge/bundled%20&%20gzip-570%20B-brightgreen.svg
 [bundlesize]: https://github.com/siddharthkp/bundlesize
 
 <div align="center">
@@ -31,7 +31,59 @@ $ npm install picostyle
 
 Picostyle works well with Media Queries (`@media`), Pseudo-element and Pseudo-classes (`:hover`).
 
+### Use with hyperapp
+
 ```js
+import { h, app } from "hyperapp"
+import picostyle from "../"
+
+const ps = picostyle(h)
+
+app({
+  state: 'Picostyle',
+  view: (state) => {
+    const keyColor = "#f07";
+
+    const Text = ps("h1")({
+      fontSize: 64,
+      cursor: "pointer",
+      color: "#fff",
+      padding: "0.4em",
+      transition: "all .2s ease-in-out",
+      ":hover": {
+        transform: "scale(1.3)",
+      },
+      "@media (max-width: 450px)": {
+        fontSize: 32,
+      },
+    })
+
+    const Wrapper = ps("div")({
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      width: "100vw",
+      height: "100vh",
+      backgroundColor: keyColor,
+    })
+
+    return (
+      <Wrapper>
+        <Text>Hello, {state}</Text>
+      </Wrapper>
+    )
+  }
+})
+```
+
+### Use with Picodom
+
+```js
+import picodom from "picodom"
+import picostyle from "picostyle"
+
+const ps = picostyle(picodom.h)
+
 const Text = ps("h1")({
   fontSize: 64,
   cursor: "pointer",
