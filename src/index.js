@@ -1,5 +1,3 @@
-import { h } from "picodom"
-
 let _id = 0
 let cache = {}
 
@@ -41,4 +39,4 @@ const parse = (decl, child = "", media) => {
   }).join(" ")
 }
 
-export default tag => (...decls) => (_, children) => h(tag, { class: parse(decls[0]) }, children)
+export default h => tag => (...decls) => (_, children) => h(tag, { class: parse(decls[0]) }, children)
