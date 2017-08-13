@@ -46,7 +46,7 @@ app({
     const keyColor = "#f07";
 
     const Text = ps("h1")({
-      fontSize: 64,
+      fontSize: "64px",
       cursor: "pointer",
       color: "#fff",
       padding: "0.4em",
@@ -55,7 +55,7 @@ app({
         transform: "scale(1.3)",
       },
       "@media (max-width: 450px)": {
-        fontSize: 32,
+        fontSize: "32px",
       },
     })
 
@@ -86,7 +86,7 @@ import picostyle from "picostyle"
 const ps = picostyle(picodom.h)
 
 const Text = ps("h1")({
-  fontSize: 64,
+  fontSize: "64px",
   cursor: "pointer",
   color: "#fff",
   padding: "0.4em",
@@ -95,7 +95,7 @@ const Text = ps("h1")({
     transform: "scale(1.3)",
   },
   "@media (max-width: 450px)": {
-    fontSize: 32,
+    fontSize: "32px",
   },
 })
 

@@ -1,19 +1,17 @@
 let _id = 0
 let cache = {}
 
-const hyphenate = str => str.replace(/[A-Z]|^ms/g, "-$&").toLowerCase()
-const setpx = value => typeof value === "number" ? `${value}px` : value
+const hyphenate = str => str.replace(/[A-Z]/g, "-$&").toLowerCase()
 const sheet = document.head.appendChild(document.createElement("style")).sheet
 const insert = rule => sheet.insertRule(rule, sheet.cssRules.length)
 
 const createRule = (className, property, value, media) => {
-  const rule = `.${className}{${hyphenate(property)}: ${setpx(value)}}`
+  const rule = `.${className}{${hyphenate(property)}: ${value}}`
   return media ? `${media}{${rule}}` : rule
 }
 
 const parse = (decl, child = "", media) => {
   let properties = []
-
   for (let property in decl) {
     properties.push(property)
   }
