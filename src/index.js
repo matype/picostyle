@@ -1,37 +1,42 @@
-let _id = 0
-let cache = {}
+var _id = 0
+var cache = {}
+var sheet = document.head.appendChild(document.createElement("style")).sheet
 
-const hyphenate = str => str.replace(/[A-Z]|^ms/g, "-$&").toLowerCase()
-const setpx = value => typeof value === "number" ? `${value}px` : value
-const sheet = document.head.appendChild(document.createElement("style")).sheet
-const insert = rule => sheet.insertRule(rule, sheet.cssRules.length)
-
-const createRule = (className, property, value, media) => {
-  const rule = `.${className}{${hyphenate(property)}: ${setpx(value)}}`
-  return media ? `${media}{${rule}}` : rule
+function hyphenate (str) {
+  return str.replace(/[A-Z]/g, "-$&").toLowerCase()
 }
 
-const parse = (decl, child = "", media) => {
-  let properties = []
+function insert (rule) {
+  sheet.insertRule(rule, sheet.cssRules.length)
+}
 
-  for (let property in decl) {
+function createRule (className, property, value, media) {
+  var rule = "." + className + "{" + hyphenate(property) + ":" + value + "}"
+  return media ? media + "{" + rule + "}" : rule
+}
+
+function parse (decls, child, media) {
+  child = child || ""
+
+  var properties = []
+  for (var property in decls) {
     properties.push(property)
   }
 
-  return properties.map(property => {
-    const value = decl[property]
+  return properties.map(function (property) {
+    var value = decls[property]
     if (typeof value === "object") {
-      const nextMedia = /^@/.test(property) ? property : null
-      const nextChild = nextMedia ? child : child + property
+      var nextMedia = /^@/.test(property) ? property : null
+      var nextChild = nextMedia ? child : child + property
       return parse(value, nextChild, nextMedia)
     }
 
-    const key = property + value + media
+    var key = property + value + media
     if (cache[key]) {
       return cache[key]
     }
 
-    const className = "p" + (_id++).toString(36)
+    var className = "p" + (_id++).toString(36)
     insert(createRule(className + child, property, value, media))
     cache[key] = className
 
@@ -39,4 +44,12 @@ const parse = (decl, child = "", media) => {
   }).join(" ")
 }
 
-export default h => tag => (...decls) => (_, children) => h(tag, { class: parse(decls[0]) }, children)
+export default function (h) {
+  return function (tag) {
+    return function (decls) {
+      return function (_, children) {
+        return h(tag, { class: parse(decls) }, children)
+      }
+    }
+  }
+}

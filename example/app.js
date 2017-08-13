@@ -18,7 +18,7 @@ function view(state) {
   const keyColor = "#f07";
 
   const Text = ps("h1")({
-    fontSize: 64,
+    fontSize: "64px",
     cursor: "pointer",
     color: "#fff",
     padding: "0.4em",
@@ -27,7 +27,7 @@ function view(state) {
       transform: "scale(1.3)",
     },
     "@media (max-width: 450px)": {
-      fontSize: 32,
+      fontSize: "32px",
     },
   })
 
