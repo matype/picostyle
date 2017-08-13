@@ -2,9 +2,9 @@
 
 > Most lightweight CSS in JS library ever.
 
-[![570B gzip][gzip-badge]][bundlesize]
+[![507B gzip][gzip-badge]][bundlesize]
 
-[gzip-badge]: https://img.shields.io/badge/bundled%20&%20gzip-570%20B-brightgreen.svg
+[gzip-badge]: https://img.shields.io/badge/bundled%20&%20gzip-507%20B-brightgreen.svg
 [bundlesize]: https://github.com/siddharthkp/bundlesize
 
 <div align="center">
@@ -16,7 +16,7 @@
 
 ## Features
 
-- **🚀 Most lightweight CSS in JS library ever**: Only 0.6 KB (bundled & gzipped)
+- **🚀 Most lightweight CSS in JS library ever**: Only 0.5 KB (bundled & gzipped)
 - **⚡️ Extreme high performance**: Optimized by Virtual CSS inspired by [Styletron](https://ryantsao.com/blog/virtual-css-with-styletron)
 - **💅 Styled components**: Returns styled components like [styled-components](https://www.styled-components.com/) that everyone loves :)
 - **❤️ For HyperApp**: [HyperApp](https://github.com/hyperapp/hyperapp) is a JavaScript library for building frontend applications
