@@ -5,10 +5,10 @@ const APP_ROOT = __dirname;
 module.exports = {
   context: APP_ROOT,
   devServer: {
-    contentBase: 'example',
+    contentBase: './',
   },
   entry: {
-    app: './example/app.js',
+    app: './app.js',
   },
   module: {
     rules: [
@@ -48,7 +48,7 @@ module.exports = {
   },
   output: {
     filename: '[name].js',
-    path: path.join(APP_ROOT, 'example/dist'),
+    path: path.join(APP_ROOT, 'dist'),
     publicPath: '/dist/',
   },
 };

@@ -14,6 +14,8 @@
 </div>
 <br>
 
+[Try it Online](https://codepen.io/morishitter/pen/qXaPYQ?editors=0010)
+
 ## Features
 
 - **🚀 Most lightweight CSS in JS library ever**: Only 0.5 KB (bundled & gzipped)
@@ -115,6 +117,5 @@ return (
 )
 ```
 
-Perfect example with Picodom and webpack is [here](https://github.com/morishitter/picostyle/tree/master/example).
+Perfect example with Picodom and webpack is [here](https://github.com/morishitter/picostyle/tree/master/examples/picodom).
 
-[Try it online](https://codepen.io/morishitter/pen/qXaPYQ?editors=0010)! :D

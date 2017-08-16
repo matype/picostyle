@@ -1,5 +1,7 @@
+/** @jsx */
+
 import {h, patch} from "picodom"
-import picostyle from "../"
+import picostyle from "picostyle"
 
 const ps = picostyle(h)
 

@@ -26,16 +26,9 @@
   },
   "homepage": "https://github.com/morishitter/picostyle#readme",
   "devDependencies": {
-    "babel-core": "^6.25.0",
-    "babel-loader": "^7.1.1",
-    "babel-plugin-transform-react-jsx": "^6.24.1",
-    "babel-preset-env": "^1.6.0",
     "bundlesize": "^0.13.2",
-    "picodom": "^0.1.0",
     "rollup": "^0.47.5",
-    "rollup-plugin-uglify": "^2.0.1",
-    "webpack": "^3.4.1",
-    "webpack-dev-server": "^2.6.1"
+    "rollup-plugin-uglify": "^2.0.1"
   },
   "bundlesize": [
     {
