@@ -5,13 +5,8 @@ const ps = picostyle(h)
 
 let element, oldNode
 
-function render(newNode) {
-  return (element = patch(
-    document.body,
-    element,
-    oldNode,
-    (oldNode = newNode)
-  ))
+function render(node) {
+  return element = patch(oldNode, (oldNode = node), element)
 }
 
 function view(state) {
