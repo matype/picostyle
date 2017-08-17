@@ -1,5 +1,4 @@
 var _id = 0
-var cache = {}
 var sheet = document.head.appendChild(document.createElement("style")).sheet
 
 function hyphenate (str) {
@@ -7,41 +6,33 @@ function hyphenate (str) {
 }
 
 function insert (rule) {
-  sheet.insertRule(rule, sheet.cssRules.length)
+  sheet.insertRule(rule, 0)
 }
 
-function createRule (className, property, value, media) {
-  var rule = "." + className + "{" + hyphenate(property) + ":" + value + "}"
+function createRule (className, decls, media) {
+  var newDecls = []
+  for (var property in decls) {
+    newDecls.push(hyphenate(property) + ":" + decls[property] + ";")
+  }
+  var rule = "." + className + "{" + newDecls.join("") + "}"
   return media ? media + "{" + rule + "}" : rule
 }
 
-function parse (decls, child, media) {
+function parse (decls, child, media, className) {
   child = child || ""
+  className = className || "p" + (_id++).toString(36)
 
-  var properties = []
   for (var property in decls) {
-    properties.push(property)
-  }
-
-  return properties.map(function (property) {
     var value = decls[property]
     if (typeof value === "object") {
       var nextMedia = /^@/.test(property) ? property : null
       var nextChild = nextMedia ? child : child + property
-      return parse(value, nextChild, nextMedia)
+      parse(value, nextChild, nextMedia, className)
     }
+  }
 
-    var key = property + value + media
-    if (cache[key]) {
-      return cache[key]
-    }
-
-    var className = "p" + (_id++).toString(36)
-    insert(createRule(className + child, property, value, media))
-    cache[key] = className
-
-    return className
-  }).join(" ")
+  insert(createRule(className + child, decls, media))
+  return className
 }
 
 export default function (h) {
