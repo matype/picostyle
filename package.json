@@ -16,8 +16,10 @@
     "url": "git+https://github.com/morishitter/picostyle.git"
   },
   "keywords": [
+    "css",
     "css-in-js",
-    "picodom"
+    "picodom",
+    "hyperapp"
   ],
   "author": "Masaaki Morishita",
   "license": "MIT",
