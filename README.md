@@ -19,7 +19,7 @@
 ## Features
 
 - **🚀 Most lightweight CSS in JS library ever**: Only 0.3 KB (minified & gzipped)
-- **👏 Zero dependency**: Optimized by Virtual CSS inspired by [Styletron](https://ryantsao.com/blog/virtual-css-with-styletron)
+- **👏 Zero dependency**: Picostyle has no dependencies
 - **💅 Styled components**: Returns styled components like [styled-components](https://www.styled-components.com/) that everyone loves :)
 - **❤️ For HyperApp**: [HyperApp](https://github.com/hyperapp/hyperapp) is a JavaScript library for building frontend applications
 - **❤️ For Picodom**: [Picodom](https://github.com/picodom/picodom) is just 1 KB Virtual DOM builder and patch algorithm
@@ -34,7 +34,7 @@ $ npm install picostyle
 
 Picostyle works well with Media Queries (`@media`), Pseudo-element and Pseudo-classes (`:hover`).
 
-### Use with hyperapp
+### Use with HyperApp
 
 ```js
 import { h, app } from "hyperapp"
@@ -118,4 +118,3 @@ return (
 ```
 
 Perfect example with Picodom and webpack is [here](https://github.com/morishitter/picostyle/tree/master/examples/picodom).
-
