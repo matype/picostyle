@@ -8,7 +8,7 @@
   "scripts": {
     "build": "npm run clear && rollup -c",
     "clear": "(rm -rf dist || true) && mkdir dist",
-    "test": "npm run build && bundlesize",
+    "test": "npm run build && size-limit",
     "example": "webpack-dev-server"
   },
   "repository": {
@@ -26,14 +26,14 @@
   },
   "homepage": "https://github.com/morishitter/picostyle#readme",
   "devDependencies": {
-    "bundlesize": "^0.13.2",
     "rollup": "^0.47.5",
-    "rollup-plugin-uglify": "^2.0.1"
+    "rollup-plugin-uglify": "^2.0.1",
+    "size-limit": "^0.10.0"
   },
-  "bundlesize": [
+  "size-limit": [
     {
       "path": "dist/picostyle.js",
-      "threshold": "550B"
+      "limit": "350B"
     }
   ]
 }
