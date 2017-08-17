@@ -1,6 +1,6 @@
 {
   "name": "picostyle",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "Most lightweight CSS in JS library ever.",
   "main": "dist/picostyle.js",
   "jsnext:main": "src/index.js",
