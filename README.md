@@ -38,12 +38,14 @@ Picostyle works well with Media Queries (`@media`), Pseudo-element and Pseudo-cl
 
 ```js
 import { h, app } from "hyperapp"
-import picostyle from "../"
+import picostyle from "picostyle"
 
 const ps = picostyle(h)
 
 app({
-  state: 'Picostyle',
+  state: {
+    text: "Picostyle"
+  },
   view: (state) => {
     const keyColor = "#f07";
 
@@ -72,12 +74,14 @@ app({
 
     return (
       <Wrapper>
-        <Text>Hello, {state}</Text>
+        <Text>Hello, {state.text}</Text>
       </Wrapper>
     )
   }
 })
 ```
+
+Perfect example with HyperApp and webpack is [here](https://github.com/morishitter/picostyle/tree/master/examples/hyperapp).
 
 ### Use with Picodom
 
