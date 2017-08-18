@@ -1,7 +1,5 @@
 # Picostyle
 
-> Most lightweight CSS in JS library ever.
-
 [![323 gzip][gzip-badge]][bundlesize]
 
 [gzip-badge]: https://img.shields.io/badge/minified%20&%20gzipped-323%20B-brightgreen.svg
@@ -14,27 +12,30 @@
 </div>
 <br>
 
+Picostyle is a 0.3 KB CSS-in-JS library for use with [Hyperapp](https://github.com/hyperapp/hyperapp) & [Picodom](https://github.com/picodom/picodom).
+
 [Try it Online](https://codepen.io/morishitter/pen/qXaPYQ?editors=0010)
 
 ## Features
 
-- **🚀 Most lightweight CSS in JS library ever**: Only 0.3 KB (minified & gzipped)
-- **👏 Zero dependency**: Picostyle has no dependencies
-- **💅 Styled components**: Returns styled components like [styled-components](https://www.styled-components.com/) that everyone loves :)
-- **❤️ For Hyperapp**: [Hyperapp](https://github.com/hyperapp/hyperapp) is a JavaScript library for building frontend applications
-- **❤️ For Picodom**: [Picodom](https://github.com/picodom/picodom) is just 1 KB Virtual DOM builder and patch algorithm
+- **🚀 The smallest CSS-in-JS library**: Only 0.3 KB (minified & gzipped).
+- **👏 Zero dependencies**: And under 50 LOC.
+- **💅 Styled components**: Gives you a styled component like [styled-components](https://www.styled-components.com/) that y'all love.
+- **❤️ For Hyperapp & Picodom**: The 1 KB frontend library family.
 
 ## Installation
 
-```
-$ npm install picostyle
-```
+<pre>
+$ npm install <a href="https://www.npmjs.com/package/picostyle">picostyle</a>
+</pre>
 
-## How to use
+## Usage
 
 Picostyle works well with Media Queries (`@media`), Pseudo-element and Pseudo-classes (`:hover`).
 
-### Use with Hyperapp
+### With Hyperapp
+
+[Get the Code](https://github.com/morishitter/picostyle/tree/master/examples/hyperapp)
 
 ```js
 import { h, app } from "hyperapp"
@@ -81,9 +82,9 @@ app({
 })
 ```
 
-Perfect example with Hyperapp and webpack is [here](https://github.com/morishitter/picostyle/tree/master/examples/hyperapp).
+### With Picodom
 
-### Use with Picodom
+[Get the Code](https://github.com/morishitter/picostyle/tree/master/examples/picodom)
 
 ```js
 import picodom from "picodom"
@@ -121,4 +122,4 @@ return (
 )
 ```
 
-Perfect example with Picodom and webpack is [here](https://github.com/morishitter/picostyle/tree/master/examples/picodom).
+
