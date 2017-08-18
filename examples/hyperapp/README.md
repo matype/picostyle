@@ -1,4 +1,4 @@
-# Example with [HyperApp](https://github.com/hyperapp/hyperapp)
+# Example with [Hyperapp](https://github.com/hyperapp/hyperapp)
 
 ## Setup
 
