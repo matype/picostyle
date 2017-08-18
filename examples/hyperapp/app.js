@@ -10,12 +10,13 @@ app({
   view: (state) => {
     const keyColor = "#f07";
 
-    const Text = ps("h1")({
+    const Text = ps("a")({
       fontSize: "64px",
       cursor: "pointer",
       color: "#fff",
       padding: "0.4em",
       transition: "all .2s ease-in-out",
+      textDecoration: "none",
       ":hover": {
         transform: "scale(1.3)",
       },
@@ -35,7 +36,7 @@ app({
 
     return (
       <Wrapper>
-        <Text>Hello, {state.text}</Text>
+        <Text href="https://github.com/morishitter/picostyle">{state.text}</Text>
       </Wrapper>
     )
   }

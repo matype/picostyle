@@ -38,8 +38,10 @@ function parse (decls, child, media, className) {
 export default function (h) {
   return function (tag) {
     return function (decls) {
-      return function (_, children) {
-        return h(tag, { class: parse(decls) }, children)
+      return function (data, children) {
+        data = data || {}
+        data.class = parse(decls)
+        return h(tag, data, children)
       }
     }
   }
