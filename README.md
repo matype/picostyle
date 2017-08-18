@@ -2,9 +2,9 @@
 
 > Most lightweight CSS in JS library ever.
 
-[![318 gzip][gzip-badge]][bundlesize]
+[![323 gzip][gzip-badge]][bundlesize]
 
-[gzip-badge]: https://img.shields.io/badge/minified%20&%20gzipped-318%20B-brightgreen.svg
+[gzip-badge]: https://img.shields.io/badge/minified%20&%20gzipped-323%20B-brightgreen.svg
 [bundlesize]: https://github.com/siddharthkp/bundlesize
 
 <div align="center">
@@ -21,7 +21,7 @@
 - **🚀 Most lightweight CSS in JS library ever**: Only 0.3 KB (minified & gzipped)
 - **👏 Zero dependency**: Picostyle has no dependencies
 - **💅 Styled components**: Returns styled components like [styled-components](https://www.styled-components.com/) that everyone loves :)
-- **❤️ For HyperApp**: [HyperApp](https://github.com/hyperapp/hyperapp) is a JavaScript library for building frontend applications
+- **❤️ For Hyperapp**: [Hyperapp](https://github.com/hyperapp/hyperapp) is a JavaScript library for building frontend applications
 - **❤️ For Picodom**: [Picodom](https://github.com/picodom/picodom) is just 1 KB Virtual DOM builder and patch algorithm
 
 ## Installation
@@ -34,7 +34,7 @@ $ npm install picostyle
 
 Picostyle works well with Media Queries (`@media`), Pseudo-element and Pseudo-classes (`:hover`).
 
-### Use with HyperApp
+### Use with Hyperapp
 
 ```js
 import { h, app } from "hyperapp"
@@ -81,7 +81,7 @@ app({
 })
 ```
 
-Perfect example with HyperApp and webpack is [here](https://github.com/morishitter/picostyle/tree/master/examples/hyperapp).
+Perfect example with Hyperapp and webpack is [here](https://github.com/morishitter/picostyle/tree/master/examples/hyperapp).
 
 ### Use with Picodom
 
