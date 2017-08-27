@@ -38,9 +38,9 @@ function parse (decls, child, media, className) {
 export default function (h) {
   return function (tag) {
     return function (decls) {
-      const parsed = parse(decls);
+      var parsed = parse(decls);
       return function (props, children) {
-        const classes = [props && props.class, parsed].filter(x => x);
+        var classes = [props && props.class, parsed].filter(Boolean);
         return h(tag, Object.assign({}, props, { class: classes.join(' ') }), children);
       }
     }
