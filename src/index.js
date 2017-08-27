@@ -38,10 +38,10 @@ function parse (decls, child, media, className) {
 export default function (h) {
   return function (tag) {
     return function (decls) {
-      return function (data, children) {
-        data = data || {}
-        data.class = parse(decls)
-        return h(tag, data, children)
+      const parsed = parse(decls);
+      return function (props, children) {
+        const classes = [props && props.class, parsed].filter(x => x);
+        return h(tag, Object.assign({}, props, { class: classes.join(' ') }), children);
       }
     }
   }
