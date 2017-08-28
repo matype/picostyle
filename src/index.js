@@ -52,7 +52,7 @@ function parse (decls, child, media, className) {
 export default function (h) {
   return function (tag) {
     return function (decls) {
-      var parsed = parse(decls);
+      var parsed = parse(decls)
       return function (props, children) {
         var classes = [props && props.class, parsed].filter(Boolean)
         return h(tag, merge(props, { class: classes.join(' ') }), children)
