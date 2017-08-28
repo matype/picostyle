@@ -9,6 +9,20 @@ function insert (rule) {
   sheet.insertRule(rule, 0)
 }
 
+function merge(a, b) {
+  var obj = {}
+
+  for (var i in a) {
+    obj[i] = a[i]
+  }
+
+  for (var i in b) {
+    obj[i] = b[i]
+  }
+
+  return obj
+}
+
 function createRule (className, decls, media) {
   var newDecls = []
   for (var property in decls) {
@@ -41,7 +55,7 @@ export default function (h) {
       var parsed = parse(decls);
       return function (props, children) {
         var classes = [props && props.class, parsed].filter(Boolean)
-        return h(tag, Object.assign({}, props, { class: classes.join(' ') }), children)
+        return h(tag, merge(props, { class: classes.join(' ') }), children)
       }
     }
   }
