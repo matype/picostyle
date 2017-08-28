@@ -39,10 +39,10 @@ export default function (h) {
   return function (tag) {
     return function (decls) {
       var parsed = parse(decls)
-      return function (props, children) {
-        props = props || {}
-        props.class = ((props.class || '') + ' ' + parsed).trim()
-        return h(tag, props, children)
+      return function (data, children) {
+        data = data || {}
+        data.class = ((data.class || '') + ' ' + parsed).trim()
+        return h(tag, data, children)
       }
     }
   }
