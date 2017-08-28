@@ -9,20 +9,6 @@ function insert (rule) {
   sheet.insertRule(rule, 0)
 }
 
-function merge(a, b) {
-  var obj = {}
-
-  for (var i in a) {
-    obj[i] = a[i]
-  }
-
-  for (var i in b) {
-    obj[i] = b[i]
-  }
-
-  return obj
-}
-
 function createRule (className, decls, media) {
   var newDecls = []
   for (var property in decls) {
