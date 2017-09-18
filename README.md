@@ -1,8 +1,8 @@
 # Picostyle
 
-[![323 gzip][gzip-badge]][bundlesize]
+[![368 gzip][gzip-badge]][bundlesize]
 
-[gzip-badge]: https://img.shields.io/badge/minified%20&%20gzipped-323%20B-brightgreen.svg
+[gzip-badge]: https://img.shields.io/badge/minified%20&%20gzipped-368%20B-brightgreen.svg
 [bundlesize]: https://github.com/siddharthkp/bundlesize
 
 <div align="center">
@@ -19,7 +19,7 @@ Picostyle is a 0.3 KB CSS-in-JS library for use with [Hyperapp](https://github.c
 ## Features
 
 - **🚀 The smallest CSS-in-JS library**: Only 0.3 KB (minified & gzipped).
-- **👏 Zero dependencies**: And under 50 LOC.
+- **👏 Zero dependencies**: And under 60 LOC.
 - **💅 Styled components**: Gives you a styled component like [styled-components](https://www.styled-components.com/) that y'all love.
 - **❤️ For Hyperapp & Picodom**: The 1 KB frontend library family.
 
@@ -121,5 +121,3 @@ return (
   </Wrapper>
 )
 ```
-
-
