@@ -44,11 +44,10 @@ export default function (h) {
         parsed = parse(decls)
       }
       return function (data, children) {
+        data = data || {}
         if (declsType === 'function') {
           parsed = parse(decls(data))
         }
-        data = data || {}
-        parsed = parse(decls(data))
         data.class = ((data.class || '') + ' ' + parsed).trim()
         return h(tag, data, children)
       }
