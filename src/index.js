@@ -39,11 +39,12 @@ export default function (h) {
   return function (tag) {
     return function (decls) {
       var parsed;
-      if (typeof decls !== 'function') {
+      var declsType = typeof decls;
+      if (declsType !== 'function') {
         parsed = parse(decls)
       }
       return function (data, children) {
-        if (typeof decls === 'function') {
+        if (declsType === 'function') {
           parsed = parse(decls(data))
         }
         data = data || {}
