@@ -38,7 +38,14 @@ function parse (decls, child, media, className) {
 export default function (h) {
   return function (tag) {
     return function (decls) {
+      var parsed;
+      if (typeof decls !== 'function') {
+        parsed = parse(decls)
+      }
       return function (data, children) {
+        if (typeof decls === 'function') {
+          parsed = parse(decls(data))
+        }
         data = data || {}
         var parsed = parse(decls(data))
         data.class = ((data.class || '') + ' ' + parsed).trim()
