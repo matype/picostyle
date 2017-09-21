@@ -1,8 +1,8 @@
 # Picostyle
 
-[![361 gzip][gzip-badge]][bundlesize]
+[![371 gzip][gzip-badge]][bundlesize]
 
-[gzip-badge]: https://img.shields.io/badge/minified%20&%20gzipped-361%20B-brightgreen.svg
+[gzip-badge]: https://img.shields.io/badge/minified%20&%20gzipped-371%20B-brightgreen.svg
 [bundlesize]: https://github.com/siddharthkp/bundlesize
 
 <div align="center">
