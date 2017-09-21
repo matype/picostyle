@@ -44,8 +44,14 @@ export default function (h) {
       return function (data, children) {
         data = data || {}
         isDeclsFunction && (parsed = parse(decls(data)))
-        data.class = ((data.class || '') + ' ' + parsed).trim()
-        return h(tag, data, children)
+        var node = h(tag, data, children)
+        node.data.class = (node.data.class +
+          " " +
+          (data.class || "") +
+          " " +
+          parsed).trim()
+
+        return node
       }
     }
   }
