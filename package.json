@@ -8,10 +8,10 @@
   "scripts": {
     "build": "npm run clear && rollup -c",
     "clear": "(rm -rf dist || true) && mkdir dist",
+    "example": "webpack-dev-server",
     "format": "prettier --no-semi --write 'src/**/*.js'",
     "lint": "prettier --no-semi -l 'src/**/*.js'",
-    "test": "npm run build && size-limit",
-    "example": "webpack-dev-server"
+    "size-check": "npm run build && size-limit"
   },
   "repository": {
     "type": "git",

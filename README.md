@@ -1,9 +1,12 @@
 # Picostyle
 
 [![371 gzip][gzip-badge]][bundlesize]
+[![Build Status][travis-badge]][travis]
 
 [gzip-badge]: https://img.shields.io/badge/minified%20&%20gzipped-371%20B-brightgreen.svg
 [bundlesize]: https://github.com/siddharthkp/bundlesize
+[travis-badge]: https://travis-ci.org/picostyle/picostyle.svg
+[travis]: https://travis-ci.org/picostyle/picostyle
 
 <div align="center">
   <a href="https://github.com/morishitter/picostyle">

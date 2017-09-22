@@ -1,0 +1,8 @@
+sudo: false
+language: node_js
+node_js:
+  - "6"
+  - "8"
+script:
+  - npm run lint
+  - npm run size-check
