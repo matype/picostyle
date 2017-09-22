@@ -8,6 +8,8 @@
   "scripts": {
     "build": "npm run clear && rollup -c",
     "clear": "(rm -rf dist || true) && mkdir dist",
+    "format": "prettier --no-semi --write 'src/**/*.js'",
+    "lint": "prettier --no-semi -l 'src/**/*.js'",
     "test": "npm run build && size-limit",
     "example": "webpack-dev-server"
   },
@@ -28,6 +30,7 @@
   },
   "homepage": "https://github.com/morishitter/picostyle#readme",
   "devDependencies": {
+    "prettier": "^1.7.0",
     "rollup": "^0.47.5",
     "rollup-plugin-uglify": "^2.0.1",
     "size-limit": "^0.10.0"

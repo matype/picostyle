@@ -1,15 +1,15 @@
 var _id = 0
 var sheet = document.head.appendChild(document.createElement("style")).sheet
 
-function hyphenate (str) {
+function hyphenate(str) {
   return str.replace(/[A-Z]/g, "-$&").toLowerCase()
 }
 
-function insert (rule) {
+function insert(rule) {
   sheet.insertRule(rule, 0)
 }
 
-function createRule (className, decls, media) {
+function createRule(className, decls, media) {
   var newDecls = []
   for (var property in decls) {
     newDecls.push(hyphenate(property) + ":" + decls[property] + ";")
@@ -18,7 +18,7 @@ function createRule (className, decls, media) {
   return media ? media + "{" + rule + "}" : rule
 }
 
-function parse (decls, child, media, className) {
+function parse(decls, child, media, className) {
   child = child || ""
   className = className || "p" + (_id++).toString(36)
 
@@ -35,13 +35,13 @@ function parse (decls, child, media, className) {
   return className
 }
 
-export default function (h) {
-  return function (tag) {
-    return function (decls) {
+export default function(h) {
+  return function(tag) {
+    return function(decls) {
       var parsed
       var isDeclsFunction = typeof decls === "function"
       !isDeclsFunction && (parsed = parse(decls))
-      return function (data, children) {
+      return function(data, children) {
         data = data || {}
         isDeclsFunction && (parsed = parse(decls(data)))
         var node = h(tag, data, children)
@@ -49,7 +49,8 @@ export default function (h) {
           " " +
           (data.class || "") +
           " " +
-          parsed).trim()
+          parsed
+        ).trim()
 
         return node
       }
