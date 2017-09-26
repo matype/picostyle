@@ -45,7 +45,7 @@ export default function(h) {
         data = data || {}
         isDeclsFunction && (parsed = parse(decls(data)))
         var node = h(tag, data, children)
-        node.data.class = (node.data.class +
+        node.data.class = ((node.data.class || "") +
           " " +
           (data.class || "") +
           " " +
