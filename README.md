@@ -39,7 +39,7 @@ Otherwise, download the [latest release](https://github.com/picostyle/picostyle/
 ```html
 <script src="https://unpkg.com/picostyle"></script>
 or 
-<script src="https://cdn.jsdelivr.net/npm/picostyle@0.1.5/dist/picostyle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/picostyle@latest/dist/picostyle.js"></script>
 ```
 
 Then find it in `window.picostyle`.
