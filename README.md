@@ -35,7 +35,7 @@ Then with a module bundler like [Rollup](https://github.com/rollup/rollup) or [W
 import picostyle from "picostyle"
 ```
 
-Otherwise, download the [latest release](https://github.com/picostyle/picostyle/releases/latest) or load directly from [unpkg](https://unpkg.com/picostyle).
+Otherwise, download the [latest release](https://github.com/picostyle/picostyle/releases/latest) or load directly from [unpkg](https://unpkg.com/picostyle) or [jsDelivr](https://cdn.jsdelivr.net/npm/picostyle@latest/dist/picostyle.js).
 ```html
 <script src="https://unpkg.com/picostyle"></script>
 ```
