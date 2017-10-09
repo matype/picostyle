@@ -41,17 +41,16 @@ export default function(h) {
       var parsed
       var isDeclsFunction = typeof decls === "function"
       !isDeclsFunction && (parsed = parse(decls))
-      return function(data, children) {
-        data = data || {}
-        isDeclsFunction && (parsed = parse(decls(data)))
-        var node = h(tag, data, children)
-        node.data.class = ((node.data.class || "") +
+      return function(props, children) {
+        props = props || {}
+        isDeclsFunction && (parsed = parse(decls(props)))
+        var node = h(tag, props, children)
+        node.props.class = ((node.props.class || "") +
           " " +
-          (data.class || "") +
+          (props.class || "") +
           " " +
           parsed
         ).trim()
-
         return node
       }
     }
