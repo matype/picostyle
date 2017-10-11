@@ -11,6 +11,7 @@
     "example": "webpack-dev-server",
     "format": "prettier --no-semi --write 'src/**/*.js'",
     "lint": "prettier --no-semi -l 'src/**/*.js'",
+    "prepublish": "npm run build",
     "size-check": "npm run build && size-limit"
   },
   "repository": {

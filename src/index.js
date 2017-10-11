@@ -36,7 +36,7 @@ function parse(decls, child, media, className) {
 }
 
 export default function(h) {
-  return function(tag) {
+  return function(type) {
     return function(decls) {
       var parsed
       var isDeclsFunction = typeof decls === "function"
@@ -44,7 +44,7 @@ export default function(h) {
       return function(props, children) {
         props = props || {}
         isDeclsFunction && (parsed = parse(decls(props)))
-        var node = h(tag, props, children)
+        var node = h(type, props, children)
         node.props.class = ((node.props.class || "") +
           " " +
           (props.class || "") +
