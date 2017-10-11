@@ -45,12 +45,7 @@ export default function(h) {
         props = props || {}
         isDeclsFunction && (parsed = parse(decls(props)))
         var node = h(type, props, children)
-        node.props.class = ((node.props.class || "") +
-          " " +
-          (props.class || "") +
-          " " +
-          parsed
-        ).trim()
+        node.props.class = [props.class, parsed].filter(Boolean).join(" ")
         return node
       }
     }
