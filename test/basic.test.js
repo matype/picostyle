@@ -134,7 +134,7 @@ test("class name bundling", () => {
     backgroundColor: "red"
   })
 
-  // BUG: See https://github.com/picostyle/picostyle/pull/26
+  // BUG: Fix this test when https://github.com/picostyle/picostyle/pull/26 is resolved
   expectClassNameAndProps(
     Test(),
     "p9 p9 pa",
