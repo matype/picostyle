@@ -20,7 +20,7 @@ function removeRules(stylesheet) {
   }
 }
 
-function expectClassNameAndProps(obj, className, cssAsText) {
+function expectClassNameAndCssText(obj, className, cssAsText) {
   expect(obj.props).toHaveProperty("class", className)
   expect(cssRulesAsText(document.styleSheets[0])).toEqual(cssAsText)
 }
@@ -32,14 +32,14 @@ afterEach(() => {
 
 test("empty style object", () => {
   const Test = style("div")
-  expectClassNameAndProps(Test(), "p0", ".p0 {}")
+  expectClassNameAndCssText(Test(), "p0", ".p0 {}")
 })
 
 test("basic style object", () => {
   const Test = style("div", {
     color: "red"
   })
-  expectClassNameAndProps(Test(), "p1", ".p1 {color: red;}")
+  expectClassNameAndCssText(Test(), "p1", ".p1 {color: red;}")
 })
 
 test("1 level descendant combinator", () => {
@@ -49,7 +49,7 @@ test("1 level descendant combinator", () => {
       color: "white"
     }
   })
-  expectClassNameAndProps(
+  expectClassNameAndCssText(
     Test(),
     "p2",
     ".p2 {color: red;},.p2 tr {color: white;}"
@@ -66,7 +66,7 @@ test("2 level descendant combinator", () => {
       }
     }
   })
-  expectClassNameAndProps(
+  expectClassNameAndCssText(
     Test(),
     "p3",
     ".p3 {color: red;},.p3 tr {color: white;},.p3 tr td {color: blue;}"
@@ -79,7 +79,7 @@ test("class selector", () => {
       color: "white"
     }
   })
-  expectClassNameAndProps(Test(), "p4", ".p4 {},.p4.active {color: white;}")
+  expectClassNameAndCssText(Test(), "p4", ".p4 {},.p4.active {color: white;}")
 })
 
 test("universal selector (asterisk)", () => {
@@ -88,7 +88,7 @@ test("universal selector (asterisk)", () => {
       color: "white"
     }
   })
-  expectClassNameAndProps(Test(), "p5", ".p5 {},.p5* {color: white;}")
+  expectClassNameAndCssText(Test(), "p5", ".p5 {},.p5* {color: white;}")
 })
 
 test("pseudo-element", () => {
@@ -97,7 +97,7 @@ test("pseudo-element", () => {
       content: "attr(data-value) '%'"
     }
   })
-  expectClassNameAndProps(
+  expectClassNameAndCssText(
     Test(),
     "p6",
     ".p6 {},.p6::before {content: attr(data-value) '%';}"
@@ -110,7 +110,7 @@ test("pseudo-class", () => {
       color: "white"
     }
   })
-  expectClassNameAndProps(Test(), "p7", ".p7 {},.p7:hover {color: white;}")
+  expectClassNameAndCssText(Test(), "p7", ".p7 {},.p7:hover {color: white;}")
 })
 
 test("pseudo-class", () => {
@@ -119,7 +119,7 @@ test("pseudo-class", () => {
       width: "auto"
     }
   })
-  expectClassNameAndProps(
+  expectClassNameAndCssText(
     Test(),
     "p8",
     ".p8 {},@media screen and (min-width: 480px) {.p8 {width: auto;}}"
@@ -135,7 +135,7 @@ test("class name bundling", () => {
   })
 
   // BUG: Fix this test when https://github.com/picostyle/picostyle/pull/26 is resolved
-  expectClassNameAndProps(
+  expectClassNameAndCssText(
     Test(),
     "p9 p9 pa",
     ".pa {background-color: red;},.p9 {color: white;}"
@@ -146,7 +146,7 @@ test("decl as function", () => {
   const Test = style("div", props => {
     return { color: props.color }
   })
-  expectClassNameAndProps(
+  expectClassNameAndCssText(
     Test({ color: "tomato" }),
     "pb",
     ".pb {color: tomato;}"
@@ -158,5 +158,5 @@ test("extend component", () => {
   const Test = style(Div, {
     backgroundColor: "red"
   })
-  expectClassNameAndProps(Test({}), "pc", ".pc {background-color: red;}")
+  expectClassNameAndCssText(Test({}), "pc", ".pc {background-color: red;}")
 })
