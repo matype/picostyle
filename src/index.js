@@ -12,10 +12,19 @@ function insert(rule) {
 function createRule(className, decls, media) {
   var newDecls = []
   for (var property in decls) {
-    newDecls.push(hyphenate(property) + ":" + decls[property] + ";")
+    typeof decls[property] !== "object" &&
+      newDecls.push(hyphenate(property) + ":" + decls[property] + ";")
   }
   var rule = "." + className + "{" + newDecls.join("") + "}"
   return media ? media + "{" + rule + "}" : rule
+}
+
+function concat(str1, str2) {
+  if (/^[a-z]/.test(str2)) {
+    return str1 + " " + str2
+  } else {
+    return str1 + str2
+  }
 }
 
 function parse(decls, child, media, className) {
@@ -26,12 +35,12 @@ function parse(decls, child, media, className) {
     var value = decls[property]
     if (typeof value === "object") {
       var nextMedia = /^@/.test(property) ? property : null
-      var nextChild = nextMedia ? child : child + property
+      var nextChild = nextMedia ? child : concat(child, property)
       parse(value, nextChild, nextMedia, className)
     }
   }
 
-  insert(createRule(className + child, decls, media))
+  insert(createRule(concat(className, child), decls, media))
   return className
 }
 
