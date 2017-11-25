@@ -47,7 +47,7 @@
   "size-limit": [
     {
       "path": "dist/picostyle.js",
-      "limit": "399B"
+      "limit": "499B"
     }
   ]
 }
