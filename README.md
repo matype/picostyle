@@ -1,6 +1,6 @@
 # Picostyle
 
-[![371 gzip][gzip-badge]][bundlesize]
+[![405 gzip][gzip-badge]][bundlesize]
 [![Build Status][travis-badge]][travis]
 
 [gzip-badge]: https://img.shields.io/badge/minified%20&%20gzipped-371%20B-brightgreen.svg
@@ -8,12 +8,12 @@
 [travis-badge]: https://travis-ci.org/picostyle/picostyle.svg
 [travis]: https://travis-ci.org/picostyle/picostyle
 
-Picostyle is a 0.3 KB CSS-in-JS library for use with frameworks that expose an `h` function.
+Picostyle is a 0.4 KB CSS-in-JS library for use with frameworks that expose an `h` function.
 
 [Try it Online](https://codepen.io/lukejacksonn/pen/xXRGpv?editors=0010)
 
-- **🚀 The smallest CSS-in-JS library**: Only 0.3 KB (minified & gzipped).
-- **👏 Zero dependencies**: And under 60 LOC.
+- **🚀 The smallest CSS-in-JS library**: Only 0.4 KB (minified & gzipped).
+- **👏 Zero dependencies**: And under 70 LOC.
 - **💅 Styled components**: Gives you a styled component like [styled-components](https://www.styled-components.com/) that y'all love.
 
 Currently tested with:
