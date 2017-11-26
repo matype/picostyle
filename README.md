@@ -1,6 +1,6 @@
 # Picostyle
 
-[![371 gzip][gzip-badge]][bundlesize]
+[![405 gzip][gzip-badge]][bundlesize]
 [![Build Status][travis-badge]][travis]
 
 [gzip-badge]: https://img.shields.io/badge/minified%20&%20gzipped-371%20B-brightgreen.svg
