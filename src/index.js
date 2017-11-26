@@ -20,11 +20,7 @@ function createRule(className, decls, media) {
 }
 
 function concat(str1, str2) {
-  if (/^[a-z]/.test(str2)) {
-    return str1 + " " + str2
-  } else {
-    return str1 + str2
-  }
+  return str1 + (/^\w/.test(str2) ? " " : "") + str2
 }
 
 function parse(decls, child, media, className) {
