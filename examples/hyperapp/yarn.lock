@@ -1729,9 +1729,9 @@ https-browserify@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-0.0.1.tgz#3f91365cabe60b77ed0ebba24b454e3e09d95a82"
 
-hyperapp@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/hyperapp/-/hyperapp-0.11.0.tgz#80b8af17aa50fd1908e8a8091711a23b1193fe3d"
+hyperapp@^0.18.0:
+  version "0.18.0"
+  resolved "https://registry.yarnpkg.com/hyperapp/-/hyperapp-0.18.0.tgz#5b98f9ddd0f3ac70afb592d35da7a18cf4edc5fe"
 
 ieee754@^1.1.4:
   version "1.1.8"
@@ -2506,9 +2506,9 @@ performance-now@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-0.2.0.tgz#33ef30c5c77d4ea21c5a53869d91b56d8f2555e5"
 
-picostyle@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/picostyle/-/picostyle-0.1.0.tgz#6aec1acc42366b4c81ee8927a89ae64dabfd9acf"
+picostyle@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/picostyle/-/picostyle-0.2.0.tgz#c61335d8c2e75f802cd96f1f5d9cc9185b6f10db"
 
 pify@^2.0.0, pify@^2.3.0:
   version "2.3.0"

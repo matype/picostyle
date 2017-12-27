@@ -3,8 +3,8 @@
     "start": "webpack-dev-server"
   },
   "dependencies": {
-    "hyperapp": "^0.11.0",
-    "picostyle": "^0.1.0"
+    "hyperapp": "^0.18.0",
+    "picostyle": "^0.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
