@@ -10,7 +10,7 @@
 
 Picostyle is a 0.4 KB CSS-in-JS library for use with frameworks that expose an `h` function.
 
-[Try it Online](https://codepen.io/lukejacksonn/pen/xXRGpv?editors=0010)
+[Try it Online](https://codepen.io/morishitter/pen/aEpGYN?editors=0010)
 
 - **🚀 The smallest CSS-in-JS library**: Only 0.4 KB (minified & gzipped).
 - **👏 Zero dependencies**: And under 70 LOC.
