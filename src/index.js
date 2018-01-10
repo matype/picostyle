@@ -1,5 +1,6 @@
 var _id = 0
 var sheet = document.head.appendChild(document.createElement("style")).sheet
+var serialize = JSON.stringify.bind(null)
 
 function hyphenate(str) {
   return str.replace(/[A-Z]/g, "-$&").toLowerCase()
@@ -42,20 +43,18 @@ function parse(decls, child, media, className) {
 
 export default function(h) {
   return function(type) {
+    var cache = {}
     return function(decls) {
-      var parsed
       var isDeclsFunction = typeof decls === "function"
-      !isDeclsFunction && (parsed = parse(decls))
+
       return function(props, children) {
         props = props || {}
-        isDeclsFunction && (parsed = parse(decls(props)))
+        var key = serialize(props)
+        cache[key] ||
+          (cache[key] =
+            (isDeclsFunction && parse(decls(props))) || parse(decls))
         var node = h(type, props, children)
-        node.props.class = ((node.props.class || "") +
-          " " +
-          (props.class || "") +
-          " " +
-          parsed
-        ).trim()
+        node.props.class = [props.class, cache[key]].filter(Boolean).join(" ")
         return node
       }
     }
