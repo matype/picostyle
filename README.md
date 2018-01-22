@@ -69,6 +69,14 @@ const Text = style(Component)({
   color: "#fff",
 })
 ```
+If you want to change the style based on the props, you can do it by passing a function, instead of JSON styles.
+
+```js
+// Here we set the color of the button, based on the color prop
+const Button = style("button")(props => ({
+  color: props.color
+}))
+```
 
 You can now use the styled components to build your app.
 
@@ -76,8 +84,11 @@ You can now use the styled components to build your app.
 const App = h("main", {}, [
   Wrapper({}, Text("Scoping CSS is hard")),
   Wrapper({}, Text("Not with styled components!")),
+  Wrapper({color: 'red'}, Button("I'm red!")),
 ])
 ```
+
+
 
 Picostyle transforms any provided JSON styles into plain CSS styles and injects them into a style tag in the head of the document; all under unique style identifiers (USI). Each styled component is given a USI as a class name.
 
