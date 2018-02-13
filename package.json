@@ -36,6 +36,7 @@
   "homepage": "https://github.com/morishitter/picostyle#readme",
   "devDependencies": {
     "babel-preset-env": "^1.6.1",
+    "hyperapp": "^1.1.1",
     "jest": "^21.2.1",
     "jsdom": "^11.4.0",
     "picodom": "^1.0.2",

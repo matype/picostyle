@@ -42,19 +42,22 @@ function parse(decls, child, media, className) {
 }
 
 export default function(h) {
-  return function(type) {
+  return function(nodeName) {
     var cache = {}
     return function(decls) {
       var isDeclsFunction = typeof decls === "function"
 
-      return function(props, children) {
-        props = props || {}
-        var key = serialize(props)
+      return function(attributes, children) {
+        attributes = attributes || {}
+        children = attributes.children || children
+        var key = serialize(attributes)
         cache[key] ||
           (cache[key] =
-            (isDeclsFunction && parse(decls(props))) || parse(decls))
-        var node = h(type, props, children)
-        node.props.class = [props.class, cache[key]].filter(Boolean).join(" ")
+            (isDeclsFunction && parse(decls(attributes))) || parse(decls))
+        var node = h(nodeName, attributes, children)
+        node.attributes.class = [attributes.class, cache[key]]
+          .filter(Boolean)
+          .join(" ")
         return node
       }
     }
