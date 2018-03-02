@@ -1,4 +1,4 @@
-import { h } from "picodom"
+import { h } from "hyperapp"
 import picostyle from "../src"
 
 // import create and attach a dom to global namespace
@@ -8,7 +8,7 @@ const dom = new JSDOM()
 global.document = dom.window.document
 
 // picostyle helper function
-const style = (type, decls) => picostyle(h)(type)(decls)
+const style = (nodeName, decls) => picostyle(h)(nodeName)(decls)
 
 function cssRulesAsText(stylesheet) {
   return stylesheet.cssRules.map(rule => rule.cssText).join()
@@ -21,7 +21,7 @@ function removeRules(stylesheet) {
 }
 
 function expectClassNameAndCssText(obj, className, cssAsText) {
-  expect(obj.props).toHaveProperty("class", className)
+  expect(obj.attributes).toHaveProperty("class", className)
   expect(cssRulesAsText(document.styleSheets[0])).toEqual(cssAsText)
 }
 
@@ -143,8 +143,8 @@ test("class name bundling", () => {
 })
 
 test("decl as function", () => {
-  const Test = style("div", props => {
-    return { color: props.color }
+  const Test = style("div", attributes => {
+    return { color: attributes.color }
   })
   expectClassNameAndCssText(
     Test({ color: "tomato" }),
@@ -154,7 +154,7 @@ test("decl as function", () => {
 })
 
 test("extend component", () => {
-  const Div = (props, children) => h("div", props, children)
+  const Div = (attributes, children) => h("div", attributes, children)
   const Test = style(Div, {
     backgroundColor: "red"
   })
