@@ -1,9 +1,9 @@
 # Picostyle
 
-[![405 gzip][gzip-badge]][bundlesize]
+[![452 gzip][gzip-badge]][bundlesize]
 [![Build Status][travis-badge]][travis]
 
-[gzip-badge]: https://img.shields.io/badge/minified%20&%20gzipped-405%20B-brightgreen.svg
+[gzip-badge]: https://img.shields.io/badge/minified%20&%20gzipped-452%20B-brightgreen.svg
 [bundlesize]: https://github.com/siddharthkp/bundlesize
 [travis-badge]: https://travis-ci.org/picostyle/picostyle.svg
 [travis]: https://travis-ci.org/picostyle/picostyle
@@ -19,7 +19,7 @@ Picostyle is a 0.4 KB CSS-in-JS library for use with frameworks that expose an `
 Currently tested with:
 
 - [Hyperapp](https://github.com/hyperapp/hyperapp)
-- [Picodom](https://github.com/picodom/picodom)
+- [Ultradom](https://github.com/jorgebucaran/ultradom)
 
 ## Installation
 
@@ -56,7 +56,6 @@ const style = picostyle(h)
 The HOF accepts a tag name (or an _unstyled_ component) and returns a function that accepts JSON styles.
 
 ```js
-
 // Styled component from tag name
 const Wrapper = style("div")({
   minHeight: "100vh",
@@ -89,7 +88,6 @@ const App = h("main", {}, [
 ```
 
 
-
 Picostyle transforms any provided JSON styles into plain CSS styles and injects them into a style tag in the head of the document; all under unique style identifiers (USI). Each styled component is given a USI as a class name.
 
 Because the output is a stylesheet and not inline styles. You can use all valid CSS in your JSON styles. For example:
@@ -97,6 +95,49 @@ Because the output is a stylesheet and not inline styles. You can use all valid 
 - Media Queries (`@media (orientation: portrait)`)
 - Pseudo-element and Pseudo-classes (`::before`, `:hover`, `:last-child`).
 - Nested child styles (`> h1`, `> *+*`)
+
+### Preact example
+
+[Get the Code](https://github.com/morishitter/picostyle/tree/master/examples/preact)
+
+```js
+import picostyle from "picostyle"
+import { h, render } from 'preact';
+
+const ps = picostyle(h)
+
+const keyColor = "#f07";
+
+const Text = ps("a")({
+  fontSize: "64px",
+  cursor: "pointer",
+  color: "#fff",
+  padding: "0.4em",
+  transition: "all .2s ease-in-out",
+  textDecoration: "none",
+  ":hover": {
+    transform: "scale(1.3)",
+  },
+  "@media (max-width: 450px)": {
+    fontSize: "32px",
+  },
+})
+
+const Wrapper = ps("div")({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  width: "100vw",
+  height: "100vh",
+  backgroundColor: keyColor,
+})
+
+render((
+  <Wrapper>
+    <Text href="https://github.com/morishitter/picostyle">Picostyle meets Preact</Text>
+  </Wrapper>
+), document.body);
+```
 
 
 ### Hyperapp Example
@@ -140,43 +181,4 @@ app({
       <Text>Hello { state.text }</Text>
     </Wrapper>
 })
-```
-
-### Picodom Example
-
-[Get the Code](https://github.com/morishitter/picostyle/tree/master/examples/picodom)
-
-```js
-import picodom from "picodom"
-import picostyle from "picostyle"
-
-const style = picostyle(picodom.h)
-const theme = "hotpink" // Try change the theme to white
-
-const Wrapper = style("div")({
-  display: "flex",
-  width: "100%",
-  height: "100vh",
-  backgroundColor: theme,
-  "> h1": { cursor: "pointer" }
-})
-
-const Text = style("h1")({
-  fontSize: "calc(10px + 5vmin)",
-  color: theme === "white" ? "black" : "white",
-  margin: "auto",
-  transition: "transform .2s ease-out",
-  ":hover": {
-    transform: "scale(1.2)",
-  },
-  "@media (orientation: landscape)": {
-    fontWeight: "bold",
-  },
-})
-
-return (
-  <Wrapper>
-    <Text>{state.trim() === "" ? ":)" : state}</Text>
-  </Wrapper>
-)
 ```
