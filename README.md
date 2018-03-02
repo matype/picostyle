@@ -5,8 +5,8 @@
 
 [gzip-badge]: https://img.shields.io/badge/minified%20&%20gzipped-452%20B-brightgreen.svg
 [bundlesize]: https://github.com/siddharthkp/bundlesize
-[travis-badge]: https://travis-ci.org/picostyle/picostyle.svg
-[travis]: https://travis-ci.org/picostyle/picostyle
+[travis-badge]: https://travis-ci.org/morishitter/picostyle.svg
+[travis]: https://travis-ci.org/morishitter/picostyle
 
 Picostyle is a 0.4 KB CSS-in-JS library for use with frameworks that expose an `h` function.
 
