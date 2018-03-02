@@ -3,7 +3,7 @@
     "start": "webpack-dev-server"
   },
   "dependencies": {
-    "picostyle": "^0.2.1",
+    "picostyle": "^1.0.0",
     "preact": "^8.2.7"
   },
   "devDependencies": {

@@ -2502,13 +2502,9 @@ performance-now@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-0.2.0.tgz#33ef30c5c77d4ea21c5a53869d91b56d8f2555e5"
 
-picodom@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/picodom/-/picodom-0.1.0.tgz#4d3690159b1a45aa050db9c57191496acc346881"
-
-picostyle@^0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/picostyle/-/picostyle-0.0.6.tgz#dcc54f3d03afa034793f54125735860cbc18f480"
+picostyle@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/picostyle/-/picostyle-1.0.0.tgz#a7796b8acb32de86fd018b390271f57a01b7f999"
 
 pify@^2.0.0, pify@^2.3.0:
   version "2.3.0"
@@ -3210,6 +3206,10 @@ uglifyjs-webpack-plugin@^0.4.6:
 uid-number@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/uid-number/-/uid-number-0.0.6.tgz#0ea10e8035e8eb5b8e4449f06da1c730663baa81"
+
+ultradom@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/ultradom/-/ultradom-0.1.0.tgz#1e03e02af403883dfb4ca181e202b478a3e1f78d"
 
 unpipe@~1.0.0:
   version "1.0.0"

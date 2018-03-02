@@ -3,8 +3,8 @@
     "start": "webpack-dev-server"
   },
   "dependencies": {
-    "picodom": "^0.1.0",
-    "picostyle": "^0.0.6"
+    "picostyle": "^1.0.0",
+    "ultradom": "^0.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

@@ -1,15 +1,9 @@
 /** @jsx */
 
-import {h, patch} from "picodom"
+import {h, patch} from "ultradom"
 import picostyle from "picostyle"
 
 const ps = picostyle(h)
-
-let element, oldNode
-
-function render(node) {
-  return element = patch(oldNode, (oldNode = node), element)
-}
 
 function view(state) {
   const keyColor = "#f07";
@@ -44,4 +38,4 @@ function view(state) {
   )
 }
 
-render(view("picostyle"))
+document.body.appendChild(patch(view("Hello, Picostyle")))
