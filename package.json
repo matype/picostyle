@@ -12,7 +12,7 @@
     "example": "webpack-dev-server",
     "format": "prettier --no-semi --write 'src/**/*.js' 'test/**/*.js'",
     "lint": "prettier --no-semi -l 'src/**/*.js' 'test/**/*.js'",
-    "tslint": "node_modules/tslint/bin/tslint picostyle.d.ts test/types/*.test.*",
+    "tslint": "node_modules/tslint/bin/tslint -c test/types/tslint.json picostyle.d.ts test/types/*.test.*",
     "prepublish": "npm run build",
     "size-check": "npm run build && size-limit",
     "test": "jest --coverage --no-cache"
