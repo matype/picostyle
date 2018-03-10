@@ -1,2 +1,4 @@
 examples
 rollup.config.js
+.vscode
+package-lock.json

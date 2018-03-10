@@ -12,7 +12,7 @@
     "example": "webpack-dev-server",
     "format": "prettier --no-semi --write 'src/**/*.js' 'test/**/*.js'",
     "lint": "prettier --no-semi -l 'src/**/*.js' 'test/**/*.js'",
-    "tslint": "tslint picostyle.d.ts",
+    "tslint": "node_modules/tslint/bin/tslint picostyle.d.ts test/types/*.test.*",
     "prepublish": "npm run build",
     "size-check": "npm run build && size-limit",
     "test": "jest --coverage --no-cache"
@@ -47,7 +47,7 @@
     "size-limit": "^0.10.0",
     "tslint": "^5.9.1",
     "typescript": "^2.7.2",
-    "ultradom": "^2.2.0"
+    "ultradom": "^2.3.0"
   },
   "size-limit": [
     {
