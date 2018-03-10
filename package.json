@@ -4,6 +4,7 @@
   "description": "Most lightweight CSS in JS library ever.",
   "main": "dist/picostyle.js",
   "jsnext:main": "src/index.js",
+  "types": "picostyle.d.ts",
   "module": "src/index.js",
   "scripts": {
     "build": "npm run clear && rollup -c",
@@ -11,6 +12,7 @@
     "example": "webpack-dev-server",
     "format": "prettier --no-semi --write 'src/**/*.js' 'test/**/*.js'",
     "lint": "prettier --no-semi -l 'src/**/*.js' 'test/**/*.js'",
+    "tslint": "node_modules/tslint/bin/tslint -c test/types/tslint.json picostyle.d.ts test/types/*.test.*",
     "prepublish": "npm run build",
     "size-check": "npm run build && size-limit",
     "test": "jest --coverage --no-cache"
@@ -42,7 +44,10 @@
     "prettier": "^1.7.0",
     "rollup": "^0.47.5",
     "rollup-plugin-uglify": "^2.0.1",
-    "size-limit": "^0.10.0"
+    "size-limit": "^0.10.0",
+    "tslint": "^5.9.1",
+    "typescript": "^2.7.2",
+    "ultradom": "^2.3.0"
   },
   "size-limit": [
     {
