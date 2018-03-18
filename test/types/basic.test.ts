@@ -1,5 +1,5 @@
 import {h} from "ultradom";
-import {picostyle} from "../..";
+import picostyle from "../..";
 
 const style = picostyle(h);
 

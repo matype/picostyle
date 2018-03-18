@@ -1,5 +1,5 @@
 import {h, patch} from "ultradom";
-import {picostyle} from "../../";
+import picostyle from "../../";
 
 const ps = picostyle(h);
 
