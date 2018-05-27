@@ -22,7 +22,7 @@ function parse(obj, classname, isInsideObj, shouldWrap) {
     prop = hyphenate(prop)
     var isMedia = /^@/.test(prop)
     if (typeof value == "object") {
-      if (!isMedia && /:/.test(prop)) {
+      if (!isMedia && (/^:/.test(prop) || /^>/.test(prop))) {
         prop = classname + prop
       }
       var newString = prop + "{" + parse(value, classname, 1, isMedia) + "}"
