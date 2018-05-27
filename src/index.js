@@ -10,26 +10,26 @@ function insert(rule) {
   sheet.insertRule(rule, 0)
 }
 function createClassname(obj) {
-  var classname = "p" + _id++;
-  parse(obj, "." + classname);
-  return classname;
+  var classname = "p" + _id++
+  parse(obj, "." + classname)
+  return classname
 }
 function parse(obj, classname, isInsideObj, shouldWrap) {
-  var string = "";
-  isInsideObj = isInsideObj || 0;
+  var string = ""
+  isInsideObj = isInsideObj || 0
   for (var prop in obj) {
-    var value = obj[prop];
-    prop = hyphenate(prop);
-    var isMedia = /^@/.test(prop);
+    var value = obj[prop]
+    prop = hyphenate(prop)
+    var isMedia = /^@/.test(prop)
     if (typeof value == "object") {
       if (!isMedia && /:/.test(prop)) {
-        prop = classname + prop;
+        prop = classname + prop
       }
-      var newString = prop + "{" + parse(value, classname, 1, isMedia) + "}";
+      var newString = prop + "{" + parse(value, classname, 1, isMedia) + "}"
       if (!isInsideObj) {
-        insert(newString);
+        insert(newString)
       } else {
-        string = string + newString;
+        string = string + newString
       }
     } else {
       string =
@@ -39,14 +39,14 @@ function parse(obj, classname, isInsideObj, shouldWrap) {
         ":" +
         value +
         ";" +
-        (shouldWrap ? "}" : "");
+        (shouldWrap ? "}" : "")
     }
   }
   if (!isInsideObj) {
-    string = classname + "{" + string + "}";
-    insert(string);
+    string = classname + "{" + string + "}"
+    insert(string)
   }
-  return string;
+  return string
 }
 export default function(h) {
   return function(nodeName) {
@@ -60,7 +60,8 @@ export default function(h) {
         var key = serialize(attributes)
         cache[key] ||
           (cache[key] =
-            (isDeclsFunction && createClassname(decls(attributes))) || createClassname(decls))
+            (isDeclsFunction && createClassname(decls(attributes))) ||
+            createClassname(decls))
         var node = h(nodeName, attributes, children)
         node.attributes.class = [attributes.class, cache[key]]
           .filter(Boolean)
