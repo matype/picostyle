@@ -9,38 +9,45 @@ function hyphenate(str) {
 function insert(rule) {
   sheet.insertRule(rule, 0)
 }
-
-function createRule(className, decls, media) {
-  var newDecls = []
-  for (var property in decls) {
-    typeof decls[property] !== "object" &&
-      newDecls.push(hyphenate(property) + ":" + decls[property] + ";")
-  }
-  var rule = "." + className + "{" + newDecls.join("") + "}"
-  return media ? media + "{" + rule + "}" : rule
+function createClassname(obj) {
+  var classname = "p" + _id++;
+  parse(obj, "." + classname);
+  return classname;
 }
-
-function concat(str1, str2) {
-  return str1 + (/^\w/.test(str2) ? " " : "") + str2
-}
-
-function parse(decls, child, media, className) {
-  child = child || ""
-  className = className || "p" + (_id++).toString(36)
-
-  for (var property in decls) {
-    var value = decls[property]
-    if (typeof value === "object") {
-      var nextMedia = /^@/.test(property) ? property : null
-      var nextChild = nextMedia ? child : concat(child, property)
-      parse(value, nextChild, nextMedia, className)
+function parse(obj, classname, isInsideObj, shouldWrap) {
+  var string = "";
+  isInsideObj = isInsideObj || 0;
+  for (var prop in obj) {
+    var value = obj[prop];
+    prop = hyphenate(prop);
+    var isMedia = /^@/.test(prop);
+    if (typeof value == "object") {
+      if (!isMedia && /:/.test(prop)) {
+        prop = classname + prop;
+      }
+      var newString = prop + "{" + parse(value, classname, 1, isMedia) + "}";
+      if (!isInsideObj) {
+        insert(newString);
+      } else {
+        string = string + newString;
+      }
+    } else {
+      string =
+        string +
+        (shouldWrap ? classname + "{" : "") +
+        prop +
+        ":" +
+        value +
+        ";" +
+        (shouldWrap ? "}" : "");
     }
   }
-
-  insert(createRule(concat(className, child), decls, media))
-  return className
+  if (!isInsideObj) {
+    string = classname + "{" + string + "}";
+    insert(string);
+  }
+  return string;
 }
-
 export default function(h) {
   return function(nodeName) {
     var cache = {}
@@ -53,7 +60,7 @@ export default function(h) {
         var key = serialize(attributes)
         cache[key] ||
           (cache[key] =
-            (isDeclsFunction && parse(decls(attributes))) || parse(decls))
+            (isDeclsFunction && createClassname(decls(attributes))) || createClassname(decls))
         var node = h(nodeName, attributes, children)
         node.attributes.class = [attributes.class, cache[key]]
           .filter(Boolean)
