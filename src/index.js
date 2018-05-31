@@ -59,11 +59,15 @@ export default function(h) {
         attributes = attributes || {}
         children = attributes.children || children
         var key = JSON.stringify(attributes)
-        
+
         var node = h(nodeName, attributes, children)
-        node.attributes.class = [attributes.class, cache[key] ||
-        (cache[key] =
-          createStyle(isDeclsFunction ? decls(attributes) : decls))]
+        node.attributes.class = [
+          attributes.class,
+          cache[key] ||
+            (cache[key] = createStyle(
+              isDeclsFunction ? decls(attributes) : decls
+            ))
+        ]
           .filter(Boolean)
           .join(" ")
         return node
