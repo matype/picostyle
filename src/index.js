@@ -20,20 +20,18 @@ function parse(obj, classname, isInsideObj, shouldWrap) {
   for (var prop in obj) {
     var value = obj[prop]
     prop = hyphenate(prop)
-    var isMedia = /^@/.test(prop)
     if (typeof value == "object") {
-      if (!isMedia && (/^:/.test(prop) || /^>/.test(prop))) {
+      if ((/^(:|>)/.test(prop))) {
         prop = classname + prop
       }
-      var newString = prop + "{" + parse(value, classname, 1, isMedia) + "}"
+      var newString = prop + "{" + parse(value, classname, 1, /^@/.test(prop)) + "}"
       if (!isInsideObj) {
         insert(newString)
       } else {
         string = string + newString
       }
     } else {
-      string =
-        string +
+      string +=
         (shouldWrap ? classname + "{" : "") +
         prop +
         ":" +
