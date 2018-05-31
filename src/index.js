@@ -16,6 +16,9 @@ function createStyle(obj, id) {
   parse(obj, "." + id)
   return id
 }
+function wrap(stringToWrap, wrapper) {
+  return wrapper && wrapper + '{' + stringToWrap + '}' || stringToWrap
+}
 function parse(obj, classname, isInsideObj, shouldWrapInner) {
   var string = ""
   isInsideObj = isInsideObj || 0
@@ -27,25 +30,21 @@ function parse(obj, classname, isInsideObj, shouldWrapInner) {
         prop = classname + prop
       }
       var newString =
-        prop + "{" + parse(value, classname, 1, /^@/.test(prop)) + "}"
+        wrap(parse(value, classname, 1, /^@/.test(prop)),prop)
       if (!isInsideObj) {
         insert(newString)
       } else {
         string = string + newString
       }
     } else {
-      string +=
-        (shouldWrapInner ? classname + "{" : "") +
-        prop +
-        ":" +
-        value +
-        ";" +
-        (shouldWrapInner ? "}" : "")
+      string += wrap(prop +
+      ":" +
+      value +
+      ";", shouldWrapInner ? classname : null)
     }
   }
   if (!isInsideObj) {
-    string = classname + "{" + string + "}"
-    insert(string)
+    insert(wrap(string, classname))
   }
   return string
 }
@@ -77,6 +76,6 @@ export default function(h) {
 }
 export function keyframes(obj, id) {
   id = id || createId()
-  insert(parse({ ["@keyframes " + id]: obj }, "", 1))
+  insert(wrap(parse(obj, "", 1), '@keyframes ' + id ))
   return id
 }
