@@ -1,6 +1,5 @@
 var _id = 0
 var sheet = document.head.appendChild(document.createElement("style")).sheet
-var serialize = JSON.stringify.bind(null)
 
 function hyphenate(str) {
   return str.replace(/[A-Z]/g, "-$&").toLowerCase()
@@ -59,13 +58,12 @@ export default function(h) {
       return function(attributes, children) {
         attributes = attributes || {}
         children = attributes.children || children
-        var key = serialize(attributes)
-        cache[key] ||
-          (cache[key] =
-            (isDeclsFunction && createStyle(decls(attributes))) ||
-            createStyle(decls))
+        var key = JSON.stringify(attributes)
+        
         var node = h(nodeName, attributes, children)
-        node.attributes.class = [attributes.class, cache[key]]
+        node.attributes.class = [attributes.class, cache[key] ||
+        (cache[key] =
+          createStyle(isDeclsFunction ? decls(attributes) : decls))]
           .filter(Boolean)
           .join(" ")
         return node
