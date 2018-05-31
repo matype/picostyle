@@ -9,22 +9,26 @@ function hyphenate(str) {
 function insert(rule) {
   sheet.insertRule(rule, 0)
 }
-function createClassname(obj) {
-  var classname = "p" + _id++
-  parse(obj, "." + classname)
-  return classname
+function createId(obj) {
+  return "p" + _id++
 }
-function parse(obj, classname, isInsideObj, shouldWrap) {
+function createStyle(obj, id) {
+  id = id || createId()
+  parse(obj, "." + id)
+  return id
+}
+function parse(obj, classname, isInsideObj, shouldWrapInner) {
   var string = ""
   isInsideObj = isInsideObj || 0
   for (var prop in obj) {
     var value = obj[prop]
     prop = hyphenate(prop)
     if (typeof value == "object") {
-      if ((/^(:|>)/.test(prop))) {
+      if (/^(:|>)/.test(prop)) {
         prop = classname + prop
       }
-      var newString = prop + "{" + parse(value, classname, 1, /^@/.test(prop)) + "}"
+      var newString =
+        prop + "{" + parse(value, classname, 1, /^@/.test(prop)) + "}"
       if (!isInsideObj) {
         insert(newString)
       } else {
@@ -32,12 +36,12 @@ function parse(obj, classname, isInsideObj, shouldWrap) {
       }
     } else {
       string +=
-        (shouldWrap ? classname + "{" : "") +
+        (shouldWrapInner ? classname + "{" : "") +
         prop +
         ":" +
         value +
         ";" +
-        (shouldWrap ? "}" : "")
+        (shouldWrapInner ? "}" : "")
     }
   }
   if (!isInsideObj) {
@@ -58,8 +62,8 @@ export default function(h) {
         var key = serialize(attributes)
         cache[key] ||
           (cache[key] =
-            (isDeclsFunction && createClassname(decls(attributes))) ||
-            createClassname(decls))
+            (isDeclsFunction && createStyle(decls(attributes))) ||
+            createStyle(decls))
         var node = h(nodeName, attributes, children)
         node.attributes.class = [attributes.class, cache[key]]
           .filter(Boolean)
@@ -68,4 +72,9 @@ export default function(h) {
       }
     }
   }
+}
+export function keyframes(obj, id) {
+  id = id || createId()
+  insert(parse({ ["@keyframes " + id]: obj }, "", 1))
+  return id
 }
