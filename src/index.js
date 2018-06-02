@@ -8,44 +8,49 @@ function hyphenate(str) {
 function insert(rule) {
   sheet.insertRule(rule, 0)
 }
-function createId(obj) {
+function createId() {
   return "p" + _id++
 }
-function createStyle(obj, id) {
-  id = id || createId()
+function createStyle(obj) {
+  var id = createId()
   parse(obj, "." + id)
+    .reverse()
+    .forEach(insert)
   return id
 }
 function wrap(stringToWrap, wrapper) {
   return (wrapper && wrapper + "{" + stringToWrap + "}") || stringToWrap
 }
-function parse(obj, classname, isInsideObj, shouldWrapInner) {
-  var string = ""
+
+function parse(obj, classname, isInsideObj) {
+  var arr = [""]
   isInsideObj = isInsideObj || 0
   for (var prop in obj) {
     var value = obj[prop]
     prop = hyphenate(prop)
     if (typeof value == "object") {
-      if (/^(:|>)/.test(prop)) {
+      if (/^(:| >)/.test(prop)) {
         prop = classname + prop
       }
-      var newString = wrap(parse(value, classname, 1, /^@/.test(prop)), prop)
+      var newString = wrap(
+        parse(value, classname, isInsideObj && !/^@/.test(prop))
+          .toString()
+          .replace(",", " "),
+        prop
+      )
       if (!isInsideObj) {
-        insert(newString)
+        arr.push(newString)
       } else {
-        string = string + newString
+        arr[0] = arr[0] + newString
       }
     } else {
-      string += wrap(
-        prop + ":" + value + ";",
-        shouldWrapInner ? classname : null
-      )
+      arr[0] += prop + ":" + value + ";"
     }
   }
   if (!isInsideObj) {
-    insert(wrap(string, classname))
+    arr[0] = wrap(arr[0], classname)
   }
-  return string
+  return arr
 }
 export default function(h) {
   return function(nodeName) {
@@ -73,8 +78,8 @@ export default function(h) {
     }
   }
 }
-export function keyframes(obj, id) {
-  id = id || createId()
-  insert(wrap(parse(obj, "", 1), "@keyframes " + id))
+export function keyframes(obj) {
+  var id = createId()
+  insert(wrap(parse(obj, id, 1), "@keyframes " + id))
   return id
 }
