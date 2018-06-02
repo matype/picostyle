@@ -33,9 +33,7 @@ function parse(obj, classname, isInsideObj) {
         prop = classname + prop
       }
       var newString = wrap(
-        parse(value, classname, isInsideObj && !/^@/.test(prop))
-          .toString()
-          .replace(",", " "),
+        parse(value, classname, isInsideObj && !/^@/.test(prop)).join(""),
         prop
       )
       if (!isInsideObj) {
