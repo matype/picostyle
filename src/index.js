@@ -7,7 +7,7 @@ function hyphenate(str) {
 }
 
 function insert(rule) {
-  sheet.insertRule(rule, 0)
+  sheet.insertRule(rule, sheet.cssRules.length)
 }
 
 function createRule(className, decls, media) {
