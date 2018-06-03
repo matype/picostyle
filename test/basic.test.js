@@ -11,7 +11,11 @@ global.document = dom.window.document
 const style = (nodeName, decls) => picostyle(h)(nodeName)(decls)
 
 function cssRulesAsText(stylesheet) {
-  return [].concat(stylesheet.cssRules).reverse().map(rule => rule.cssText).join()
+  return []
+    .concat(stylesheet.cssRules)
+    .reverse()
+    .map(rule => rule.cssText)
+    .join()
 }
 
 function removeRules(stylesheet) {
