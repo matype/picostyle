@@ -54,11 +54,10 @@ export default function(h) {
         cache[key] ||
           (cache[key] =
             (isDeclsFunction && parse(decls(attributes))) || parse(decls))
-        var node = h(nodeName, attributes, children)
-        node.attributes.class = [attributes.class, cache[key]]
+        attributes.class = [attributes.class, cache[key]]
           .filter(Boolean)
           .join(" ")
-        return node
+        return h(nodeName, attributes, children)
       }
     }
   }
