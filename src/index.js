@@ -7,7 +7,7 @@ function hyphenate(str) {
 }
 
 function insert(rule) {
-  sheet.insertRule(rule, 0)
+  sheet.insertRule(rule, sheet.cssRules.length)
 }
 
 function createRule(className, decls, media) {
@@ -50,15 +50,13 @@ export default function(h) {
       return function(attributes, children) {
         attributes = attributes || {}
         children = attributes.children || children
-        var key = serialize(attributes)
-        cache[key] ||
-          (cache[key] =
-            (isDeclsFunction && parse(decls(attributes))) || parse(decls))
-        var node = h(nodeName, attributes, children)
-        node.attributes.class = [attributes.class, cache[key]]
+        var nodeDecls = isDeclsFunction ? decls(attributes) : decls
+        var key = serialize(nodeDecls)
+        cache[key] || (cache[key] = parse(nodeDecls))
+        attributes.class = [attributes.class, cache[key]]
           .filter(Boolean)
           .join(" ")
-        return node
+        return h(nodeName, attributes, children)
       }
     }
   }
