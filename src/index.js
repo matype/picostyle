@@ -50,10 +50,9 @@ export default function(h) {
       return function(attributes, children) {
         attributes = attributes || {}
         children = attributes.children || children
-        var key = serialize(attributes)
-        cache[key] ||
-          (cache[key] =
-            (isDeclsFunction && parse(decls(attributes))) || parse(decls))
+        var nodeDecls = isDeclsFunction ? decls(attributes) : decls
+        var key = serialize(nodeDecls)
+        cache[key] || (cache[key] = parse(nodeDecls))
         attributes.class = [attributes.class, cache[key]]
           .filter(Boolean)
           .join(" ")
