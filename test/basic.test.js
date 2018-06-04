@@ -164,13 +164,12 @@ test("extend component", () => {
 })
 
 test("custom class name", () => {
-  const Test = picostyle(h)("div", "test")({ color: "white" })
+  const Test = styleClass("div", "test", { color: "white" })
   expectClassNameAndCssText(Test(), "test", ".test {color: white;}")
 })
 
 test("custom class name with variations", () => {
-  const Test = picostyle(h)("div", "test")(props => ({ color: props.color || 'red' }))
-
+  const Test = styleClass("div", "test", props => ({ color: props.color || "red" }))
   expectClassNameAndCssText(Test(), "test", ".test {color: red;}")
 
   expectClassNameAndCssText(
