@@ -17,10 +17,14 @@ function insert(rule, group) {
   sheet.insertRule(rule, lastOf(group))
 }
 
+function isDef(val) {
+  return val !== undefined && val !== null && val !== ''
+}
+
 function createRule(className, decls, media) {
   var newDecls = []
   for (var property in decls) {
-    typeof decls[property] !== "object" &&
+    isDef(decls[property]) && typeof decls[property] !== "object" &&
       newDecls.push(hyphenate(property) + ":" + decls[property] + ";")
   }
   var rule = "." + className + "{" + newDecls.join("") + "}"

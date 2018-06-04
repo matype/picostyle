@@ -151,7 +151,7 @@ test("decl as function", () => {
   expectClassNameAndCssText(
     Test({ color: "tomato" }),
     "pb_1",
-    ".pb {color: undefined;},.pb_1 {color: tomato;}"
+    ".pb {},.pb_1 {color: tomato;}"
   )
 })
 
