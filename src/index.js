@@ -9,7 +9,9 @@ function hyphenate(str) {
 function lastOf(group) {
   var groupRx = new RegExp("^\\." + group + "([^0-9a-zA-Z\\-].*)?$")
   var rules = Array.from(sheet.cssRules).reverse()
-  var index = rules.findIndex(rule => groupRx.test(rule.selectorText))
+  var index = rules.findIndex(function(rule) {
+    return groupRx.test(rule.selectorText)
+  })
   return index >= 0 ? rules.length - index : rules.length
 }
 
