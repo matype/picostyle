@@ -24,36 +24,46 @@ function concat(str1, str2) {
   return str1 + (/^\w/.test(str2) ? " " : "") + str2
 }
 
-function parse(decls, child, media, className) {
+function parse(decls, className, child, media) {
   child = child || ""
   className = className || "p" + (_id++).toString(36)
+
+  insert(createRule(concat(className, child), decls, media))
 
   for (var property in decls) {
     var value = decls[property]
     if (typeof value === "object") {
       var nextMedia = /^@/.test(property) ? property : null
       var nextChild = nextMedia ? child : concat(child, property)
-      parse(value, nextChild, nextMedia, className)
+      parse(value, className, nextChild, nextMedia)
     }
   }
 
-  insert(createRule(concat(className, child), decls, media))
   return className
 }
 
+function createClass(className, version) {
+  return (className && version) ? className + '-' + version : className
+}
+
+function cached(cache, decls, attributes, className) {
+  var nodeDecls = typeof decls === 'function' ? decls(attributes) : decls
+  var key = serialize(nodeDecls)
+  var versions = Object.keys(cache).length
+  cache[key] || (cache[key] = parse(nodeDecls, createClass(className, versions)))
+  return cache[key]
+}
+
 export default function(h) {
-  return function(nodeName) {
+  return function(nodeName, className) {
     var cache = {}
     return function(decls) {
-      var isDeclsFunction = typeof decls === "function"
-
+      cached(cache, decls, {}, className)
       return function(attributes, children) {
         attributes = attributes || {}
         children = attributes.children || children
-        var nodeDecls = isDeclsFunction ? decls(attributes) : decls
-        var key = serialize(nodeDecls)
-        cache[key] || (cache[key] = parse(nodeDecls))
-        attributes.class = [attributes.class, cache[key]]
+        var cachedClass = cached(cache, decls, attributes, className)
+        attributes.class = [attributes.class, cachedClass]
           .filter(Boolean)
           .join(" ")
         return h(nodeName, attributes, children)

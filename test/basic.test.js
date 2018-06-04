@@ -11,9 +11,7 @@ global.document = dom.window.document
 const style = (nodeName, decls) => picostyle(h)(nodeName)(decls)
 
 function cssRulesAsText(stylesheet) {
-  return []
-    .concat(stylesheet.cssRules)
-    .reverse()
+  return stylesheet.cssRules
     .map(rule => rule.cssText)
     .join()
 }
@@ -140,8 +138,8 @@ test("class name bundling", () => {
 
   expectClassNameAndCssText(
     Test(),
-    "p9 pa",
-    ".pa {color: white;},.p9 {background-color: red;}"
+    "pa p9",
+    ".p9 {color: white;},.pa {background-color: red;}"
   )
 })
 
@@ -151,8 +149,8 @@ test("decl as function", () => {
   })
   expectClassNameAndCssText(
     Test({ color: "tomato" }),
-    "pb",
-    ".pb {color: tomato;}"
+    "pc",
+    ".pb {color: undefined;},.pc {color: tomato;}"
   )
 })
 
@@ -161,5 +159,17 @@ test("extend component", () => {
   const Test = style(Div, {
     backgroundColor: "red"
   })
-  expectClassNameAndCssText(Test({}), "pc", ".pc {background-color: red;}")
+  expectClassNameAndCssText(Test({}), "pd", ".pd {background-color: red;}")
+})
+
+test("custom class name", () => {
+  const Test = picostyle(h)("div", "test")({ color: "white" })
+  expectClassNameAndCssText(Test(), "test", ".test {color: white;}")
+})
+
+test("custom class name with variations", () => {
+  const Test = picostyle(h)("div", "test")(props => ({ color: props.color || 'red' }))
+  expectClassNameAndCssText(Test(), "test", ".test {color: red;}")
+  expectClassNameAndCssText(Test({ color: 'white' }), "test-1", ".test {color: red;},.test-1 {color: white;}")
+  expectClassNameAndCssText(Test({ color: 'black' }), "test-2", ".test {color: red;},.test-1 {color: white;},.test-2 {color: black;}")
 })
