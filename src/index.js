@@ -7,16 +7,11 @@ function hyphenate(str) {
 }
 
 function last(group) {
-  var groupRx = new RegExp("\." + group + "(_[0-9]+| .+)?$")
+  var groupRx = new RegExp("^\\." + group + ".*")
+  var rules = Array.from(sheet.cssRules).reverse()
+  var index = rules.findIndex(rule => groupRx.test(rule.selectorText))
 
-  var reverseIndex = []
-    .concat(sheet.cssRules)
-    .reverse()
-    .findIndex(rule => groupRx.test(rule.selectorText))
-
-  return (reverseIndex >= 0)
-    ? sheet.cssRules.length - reverseIndex
-    : sheet.cssRules.length
+  return (index >= 0) ? rules.length - index : rules.length
 }
 
 function insert(rule, group) {
