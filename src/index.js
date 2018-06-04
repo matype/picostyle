@@ -6,8 +6,21 @@ function hyphenate(str) {
   return str.replace(/[A-Z]/g, "-$&").toLowerCase()
 }
 
-function insert(rule) {
-  sheet.insertRule(rule, sheet.cssRules.length)
+function last(group) {
+  var groupRx = new RegExp("\." + group + "(_[0-9]+| .+)?$")
+
+  var reverseIndex = []
+    .concat(sheet.cssRules)
+    .reverse()
+    .findIndex(rule => groupRx.test(rule.selectorText))
+
+  return (reverseIndex >= 0)
+    ? sheet.cssRules.length - reverseIndex
+    : sheet.cssRules.length
+}
+
+function insert(rule, group) {
+  sheet.insertRule(rule, last(group))
 }
 
 function createRule(className, decls, media) {
@@ -24,18 +37,17 @@ function concat(str1, str2) {
   return str1 + (/^\w/.test(str2) ? " " : "") + str2
 }
 
-function parse(decls, className, child, media) {
+function parse(decls, className, group, child, media) {
   child = child || ""
-  className = className || "p" + (_id++).toString(36)
 
-  insert(createRule(concat(className, child), decls, media))
+  insert(createRule(concat(className, child), decls, media), group)
 
   for (var property in decls) {
     var value = decls[property]
     if (typeof value === "object") {
       var nextMedia = /^@/.test(property) ? property : null
       var nextChild = nextMedia ? child : concat(child, property)
-      parse(value, className, nextChild, nextMedia)
+      parse(value, className, group, nextChild, nextMedia, group)
     }
   }
 
@@ -43,20 +55,21 @@ function parse(decls, className, child, media) {
 }
 
 function createClass(className, version) {
-  return (className && version) ? className + '-' + version : className
+  return (className && version) ? className + '_' + version : className
 }
 
-function cached(cache, decls, attributes, className) {
+function cached(cache, decls, attributes, group) {
   var nodeDecls = typeof decls === 'function' ? decls(attributes) : decls
   var key = serialize(nodeDecls)
-  var versions = Object.keys(cache).length
-  cache[key] || (cache[key] = parse(nodeDecls, createClass(className, versions)))
+  var className = createClass(group, Object.keys(cache).length)
+  cache[key] || (cache[key] = parse(nodeDecls, className, group))
   return cache[key]
 }
 
 export default function(h) {
   return function(nodeName, className) {
     var cache = {}
+    className = className || "p" + (_id++).toString(36)
     return function(decls) {
       cached(cache, decls, {}, className)
       return function(attributes, children) {

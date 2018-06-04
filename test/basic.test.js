@@ -9,6 +9,7 @@ global.document = dom.window.document
 
 // picostyle helper function
 const style = (nodeName, decls) => picostyle(h)(nodeName)(decls)
+const styleClass = (nodeName, className, decls) => picostyle(h)(nodeName, className)(decls)
 
 function cssRulesAsText(stylesheet) {
   return stylesheet.cssRules
@@ -149,8 +150,8 @@ test("decl as function", () => {
   })
   expectClassNameAndCssText(
     Test({ color: "tomato" }),
-    "pc",
-    ".pb {color: undefined;},.pc {color: tomato;}"
+    "pb_1",
+    ".pb {color: undefined;},.pb_1 {color: tomato;}"
   )
 })
 
@@ -159,7 +160,7 @@ test("extend component", () => {
   const Test = style(Div, {
     backgroundColor: "red"
   })
-  expectClassNameAndCssText(Test({}), "pd", ".pd {background-color: red;}")
+  expectClassNameAndCssText(Test({}), "pc", ".pc {background-color: red;}")
 })
 
 test("custom class name", () => {
@@ -170,6 +171,27 @@ test("custom class name", () => {
 test("custom class name with variations", () => {
   const Test = picostyle(h)("div", "test")(props => ({ color: props.color || 'red' }))
   expectClassNameAndCssText(Test(), "test", ".test {color: red;}")
-  expectClassNameAndCssText(Test({ color: 'white' }), "test-1", ".test {color: red;},.test-1 {color: white;}")
-  expectClassNameAndCssText(Test({ color: 'black' }), "test-2", ".test {color: red;},.test-1 {color: white;},.test-2 {color: black;}")
+  expectClassNameAndCssText(Test({ color: 'white' }), "test_1", ".test {color: red;},.test_1 {color: white;}")
+  expectClassNameAndCssText(Test({ color: 'black' }), "test_2", ".test {color: red;},.test_1 {color: white;},.test_2 {color: black;}")
 })
+
+test("class name bundling with custom class variation", () => {
+  const Div = styleClass("div", "div", props =>({
+    color: props.color || "white"
+  }))
+  const Test = styleClass(Div, "test", {
+    backgroundColor: "red"
+  })
+
+  expectClassNameAndCssText(
+    Test(),
+    "test div",
+    ".div {color: white;},.test {background-color: red;}"
+  )
+  expectClassNameAndCssText(
+    Test({ color: "purple" }),
+    "test div_1",
+    ".div {color: white;},.div_1 {color: purple;},.test {background-color: red;}"
+  )
+})
+
