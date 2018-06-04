@@ -170,28 +170,64 @@ test("custom class name", () => {
 
 test("custom class name with variations", () => {
   const Test = picostyle(h)("div", "test")(props => ({ color: props.color || 'red' }))
+
   expectClassNameAndCssText(Test(), "test", ".test {color: red;}")
-  expectClassNameAndCssText(Test({ color: 'white' }), "test_1", ".test {color: red;},.test_1 {color: white;}")
-  expectClassNameAndCssText(Test({ color: 'black' }), "test_2", ".test {color: red;},.test_1 {color: white;},.test_2 {color: black;}")
+
+  expectClassNameAndCssText(
+    Test({ color: 'white' }),
+    "test_1",
+    ".test {color: red;},.test_1 {color: white;}"
+  )
+
+  expectClassNameAndCssText(
+    Test({ color: 'black' }),
+    "test_2",
+    ".test {color: red;},.test_1 {color: white;},.test_2 {color: black;}"
+  )
 })
 
-test("class name bundling with custom class variation", () => {
-  const Div = styleClass("div", "div", props =>({
+test("grouping rules by component", () => {
+  const First = styleClass("div", "first", props =>({
     color: props.color || "white"
   }))
-  const Test = styleClass(Div, "test", {
-    backgroundColor: "red"
+  const Second = styleClass("div", "second", {
+    opacity: 0
+  })
+
+  // default style for Second is already cached
+  expectClassNameAndCssText(
+    First(),
+    "first",
+    ".first {color: white;},.second {opacity: 0;}"
+  )
+
+  // new .first_1 rule is added just after .first
+  expectClassNameAndCssText(
+    First({ color: "blue" }),
+    "first_1",
+    ".first {color: white;},.first_1 {color: blue;},.second {opacity: 0;}"
+  )
+})
+
+test("potentially conflicting grouping", () => {
+  const P1 = styleClass("div", "p1", props =>({
+    color: props.color || "white",
+    '>a' : { color: 'blue' }
+  }))
+  const P12 = styleClass("div", "p12", {
+    opacity: 0.5
   })
 
   expectClassNameAndCssText(
-    Test(),
-    "test div",
-    ".div {color: white;},.test {background-color: red;}"
+    P1({ color: "green" }),
+    "p1_1",
+    ".p1 {color: white;},.p1>a {color: blue;},.p1_1 {color: green;},.p1_1>a {color: blue;},.p12 {opacity: 0.5;}"
   )
+
   expectClassNameAndCssText(
-    Test({ color: "purple" }),
-    "test div_1",
-    ".div {color: white;},.div_1 {color: purple;},.test {background-color: red;}"
+    P1({ color: "red" }),
+    "p1_2",
+    ".p1 {color: white;},.p1>a {color: blue;},.p1_1 {color: green;},.p1_1>a {color: blue;},.p1_2 {color: red;},.p1_2>a {color: blue;},.p12 {opacity: 0.5;}"
   )
 })
 
