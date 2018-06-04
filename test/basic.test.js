@@ -9,12 +9,11 @@ global.document = dom.window.document
 
 // picostyle helper function
 const style = (nodeName, decls) => picostyle(h)(nodeName)(decls)
-const styleClass = (nodeName, className, decls) => picostyle(h)(nodeName, className)(decls)
+const styleClass = (nodeName, className, decls) =>
+  picostyle(h)(nodeName, className)(decls)
 
 function cssRulesAsText(stylesheet) {
-  return stylesheet.cssRules
-    .map(rule => rule.cssText)
-    .join()
+  return stylesheet.cssRules.map(rule => rule.cssText).join()
 }
 
 function removeRules(stylesheet) {
@@ -169,24 +168,26 @@ test("custom class name", () => {
 })
 
 test("custom class name with variations", () => {
-  const Test = styleClass("div", "test", props => ({ color: props.color || "red" }))
+  const Test = styleClass("div", "test", props => ({
+    color: props.color || "red"
+  }))
   expectClassNameAndCssText(Test(), "test", ".test {color: red;}")
 
   expectClassNameAndCssText(
-    Test({ color: 'white' }),
+    Test({ color: "white" }),
     "test_1",
     ".test {color: red;},.test_1 {color: white;}"
   )
 
   expectClassNameAndCssText(
-    Test({ color: 'black' }),
+    Test({ color: "black" }),
     "test_2",
     ".test {color: red;},.test_1 {color: white;},.test_2 {color: black;}"
   )
 })
 
 test("grouping rules by component", () => {
-  const First = styleClass("div", "first", props =>({
+  const First = styleClass("div", "first", props => ({
     color: props.color || "white"
   }))
   const Second = styleClass("div", "second", {
@@ -209,9 +210,9 @@ test("grouping rules by component", () => {
 })
 
 test("potentially conflicting grouping", () => {
-  const P1 = styleClass("div", "p1", props =>({
+  const P1 = styleClass("div", "p1", props => ({
     color: props.color || "white",
-    '>a' : { color: 'blue' }
+    ">a": { color: "blue" }
   }))
   const P12 = styleClass("div", "p12", {
     opacity: 0.5
@@ -229,4 +230,3 @@ test("potentially conflicting grouping", () => {
     ".p1 {color: white;},.p1>a {color: blue;},.p1_1 {color: green;},.p1_1>a {color: blue;},.p1_2 {color: red;},.p1_2>a {color: blue;},.p12 {opacity: 0.5;}"
   )
 })
-

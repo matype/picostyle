@@ -7,10 +7,10 @@ function hyphenate(str) {
 }
 
 function lastOf(group) {
-  var groupRx = new RegExp("^\\." + group + "([^0-9a-zA-Z\-].*)?$")
+  var groupRx = new RegExp("^\\." + group + "([^0-9a-zA-Z\\-].*)?$")
   var rules = Array.from(sheet.cssRules).reverse()
   var index = rules.findIndex(rule => groupRx.test(rule.selectorText))
-  return (index >= 0) ? rules.length - index : rules.length
+  return index >= 0 ? rules.length - index : rules.length
 }
 
 function insert(rule, group) {
@@ -18,13 +18,14 @@ function insert(rule, group) {
 }
 
 function isDef(val) {
-  return val !== undefined && val !== null && val !== ''
+  return val !== undefined && val !== null && val !== ""
 }
 
 function createRule(className, decls, media) {
   var newDecls = []
   for (var property in decls) {
-    isDef(decls[property]) && typeof decls[property] !== "object" &&
+    isDef(decls[property]) &&
+      typeof decls[property] !== "object" &&
       newDecls.push(hyphenate(property) + ":" + decls[property] + ";")
   }
   var rule = "." + className + "{" + newDecls.join("") + "}"
@@ -49,11 +50,11 @@ function parse(group, className, decls, child, media) {
 }
 
 function createClass(className, version) {
-  return (className && version) ? className + '_' + version : className
+  return className && version ? className + "_" + version : className
 }
 
 function cached(cache, group, decls, attributes) {
-  var declsVariation = typeof decls === 'function' ? decls(attributes) : decls
+  var declsVariation = typeof decls === "function" ? decls(attributes) : decls
   var key = serialize(declsVariation)
   if (!cache[key]) {
     cache[key] = createClass(group, Object.keys(cache).length)
