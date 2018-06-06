@@ -11,7 +11,11 @@ global.document = dom.window.document
 const style = (nodeName, decls) => picostyle(h)(nodeName)(decls)
 
 function cssRulesAsText(stylesheet) {
-  return stylesheet.cssRules.map(rule => rule.cssText).join()
+  return []
+    .concat(stylesheet.cssRules)
+    .reverse()
+    .map(rule => rule.cssText)
+    .join()
 }
 
 function removeRules(stylesheet) {
@@ -134,11 +138,10 @@ test("class name bundling", () => {
     backgroundColor: "red"
   })
 
-  // BUG: Fix this test when https://github.com/picostyle/picostyle/pull/26 is resolved
   expectClassNameAndCssText(
     Test(),
-    "p9 p9 pa",
-    ".pa {background-color: red;},.p9 {color: white;}"
+    "p9 pa",
+    ".pa {color: white;},.p9 {background-color: red;}"
   )
 })
 
