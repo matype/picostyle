@@ -6,20 +6,17 @@ function hyphenate(str) {
 }
 
 function insert(rule) {
-  sheet.insertRule(rule, 0)
-}
-function createId() {
-  return "p" + _id++
+  sheet.insertRule(rule, sheet.cssRules.length)
 }
 function createStyle(obj) {
-  var id = createId()
+  var id = "p" + _id++
   parse(obj, "." + id)
     .reverse()
     .forEach(insert)
   return id
 }
 function wrap(stringToWrap, wrapper) {
-  return (wrapper && wrapper + "{" + stringToWrap + "}") || stringToWrap
+  return wrapper + "{" + stringToWrap + "}"
 }
 
 function parse(obj, classname, isInsideObj) {
@@ -28,12 +25,13 @@ function parse(obj, classname, isInsideObj) {
   for (var prop in obj) {
     var value = obj[prop]
     prop = hyphenate(prop)
-    if (typeof value == "object") {
+    // Same as typeof value === 'object', but smaller
+    if (!value.sub) {
       if (/^(:| >)/.test(prop)) {
         prop = classname + prop
       }
       var newString = wrap(
-        parse(value, classname, isInsideObj && !/^@/.test(prop)).join(""),
+        parse(value, classname, 1 && !/^@/.test(prop)).join(""),
         prop
       )
       if (!isInsideObj) {
@@ -54,30 +52,22 @@ export default function(h) {
   return function(nodeName) {
     var cache = {}
     return function(decls) {
-      var isDeclsFunction = typeof decls === "function"
-
       return function(attributes, children) {
         attributes = attributes || {}
         children = attributes.children || children
-        var key = JSON.stringify(attributes)
-
-        var node = h(nodeName, attributes, children)
-        node.attributes.class = [
-          attributes.class,
-          cache[key] ||
-            (cache[key] = createStyle(
-              isDeclsFunction ? decls(attributes) : decls
-            ))
-        ]
+        var nodeDecls = isDeclsFunction ? decls(attributes) : decls
+        var key = JSON.stringify(nodeDecls)
+        cache[key] || (cache[key] = createStyle(nodeDecls))
+        attributes.class = [attributes.class, cache[key]]
           .filter(Boolean)
           .join(" ")
-        return node
+        return h(nodeName, attributes, children)
       }
     }
   }
 }
 export function keyframes(obj) {
-  var id = createId()
+  var id = "p" + _id++
   insert(wrap(parse(obj, id, 1), "@keyframes " + id))
   return id
 }
