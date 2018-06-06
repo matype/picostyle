@@ -55,7 +55,7 @@ export default function(h) {
       return function(attributes, children) {
         attributes = attributes || {}
         children = attributes.children || children
-        var nodeDecls = isDeclsFunction ? decls(attributes) : decls
+        var nodeDecls = decls.call ? decls(attributes) : decls
         var key = JSON.stringify(nodeDecls)
         cache[key] || (cache[key] = createStyle(nodeDecls))
         attributes.class = [attributes.class, cache[key]]
