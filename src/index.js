@@ -10,8 +10,7 @@ function insert(rule) {
 }
 function createStyle(obj) {
   var id = "p" + _id++
-  parse(obj, "." + id)
-    .forEach(insert)
+  parse(obj, "." + id).forEach(insert)
   return id
 }
 function wrap(stringToWrap, wrapper) {
@@ -29,12 +28,11 @@ function parse(obj, classname, isInsideObj) {
       if (/^(:| >)/.test(prop)) {
         prop = classname + prop
       }
-      // replace & in "&:hover", "p>&" 
-      prop = prop.replace('&', classname)
-        arr.push(wrap(
-          parse(value, classname, 1 && !/^@/.test(prop)).join(""),
-          prop
-        ))
+      // replace & in "&:hover", "p>&"
+      prop = prop.replace("&", classname)
+      arr.push(
+        wrap(parse(value, classname, 1 && !/^@/.test(prop)).join(""), prop)
+      )
     } else {
       arr[0] += prop + ":" + value + ";"
     }
@@ -51,7 +49,7 @@ export default function(h) {
       return function(attributes, children) {
         attributes = attributes || {}
         children = attributes.children || children
-        var nodeDecls = typeof decls == 'function' ? decls(attributes) : decls
+        var nodeDecls = typeof decls == "function" ? decls(attributes) : decls
         var key = JSON.stringify(nodeDecls)
         cache[key] || (cache[key] = createStyle(nodeDecls))
         attributes.class = [attributes.class, cache[key]]
