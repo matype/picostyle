@@ -11,7 +11,6 @@ function insert(rule) {
 function createStyle(obj) {
   var id = "p" + _id++
   parse(obj, "." + id)
-    .reverse()
     .forEach(insert)
   return id
 }
@@ -30,15 +29,10 @@ function parse(obj, classname, isInsideObj) {
       if (/^(:| >)/.test(prop)) {
         prop = classname + prop
       }
-      var newString = wrap(
-        parse(value, classname, 1 && !/^@/.test(prop)).join(""),
-        prop
-      )
-      if (!isInsideObj) {
-        arr.push(newString)
-      } else {
-        arr[0] = arr[0] + newString
-      }
+        arr.push(wrap(
+          parse(value, classname, 1 && !/^@/.test(prop)).join(""),
+          prop
+        ))
     } else {
       arr[0] += prop + ":" + value + ";"
     }
@@ -68,6 +62,6 @@ export default function(h) {
 }
 export function keyframes(obj) {
   var id = "p" + _id++
-  insert(wrap(parse(obj, id, 1), "@keyframes " + id))
+  insert(wrap(parse(obj, id, 1).join(""), "@keyframes " + id))
   return id
 }
