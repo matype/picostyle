@@ -25,7 +25,7 @@ function parse(obj, classname, isInsideObj) {
     prop = hyphenate(prop)
     // Same as typeof value === 'object', but smaller
     if (!value.sub) {
-      if (/^(:| >)/.test(prop)) {
+      if (/^(:| >|\.|\*)/.test(prop)) {
         prop = classname + prop
       }
       // replace & in "&:hover", "p>&"
