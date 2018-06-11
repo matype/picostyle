@@ -66,16 +66,16 @@ test("2 level descendant combinator", () => {
   const Test = style("table", {
     color: "red",
     "& tr": {
-      color: "white",
-      "& tr td": {
-        color: "blue"
-      }
+      color: "white"
+    },
+    "& tr td": {
+      color: "blue"
     }
   })
   expectClassNameAndCssText(
     Test(),
     "p3",
-    ".p3 {color: red;},.p3 tr {color: white;},.p3 tr td {color: blue;}"
+    ".p3 tr td {color: blue;},.p3 tr {color: white;},.p3 {color: red;}"
   )
 })
 
