@@ -29,7 +29,7 @@ function parse(obj, classname, isInsideObj) {
         prop = classname + prop
       }
       // replace & in "&:hover", "p>&"
-      prop = prop.replace("&", classname)
+      prop = prop.replace(/&/g, classname)
       arr.push(
         wrap(parse(value, classname, 1 && !/^@/.test(prop)).join(""), prop)
       )
