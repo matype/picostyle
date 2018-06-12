@@ -1,9 +1,9 @@
 # Picostyle
 
-[![452 gzip][gzip-badge]][bundlesize]
+[![462 gzip][gzip-badge]][bundlesize]
 [![Build Status][travis-badge]][travis]
 
-[gzip-badge]: https://img.shields.io/badge/minified%20&%20gzipped-452%20B-brightgreen.svg
+[gzip-badge]: https://img.shields.io/badge/minified%20&%20gzipped-462%20B-brightgreen.svg
 [bundlesize]: https://github.com/siddharthkp/bundlesize
 [travis-badge]: https://travis-ci.org/morishitter/picostyle.svg
 [travis]: https://travis-ci.org/morishitter/picostyle
@@ -18,6 +18,7 @@ Picostyle is a 0.4 KB CSS-in-JS library for use with frameworks that expose an `
 
 Currently tested with:
 
+- [Preact](https://github.com/developit/preact)
 - [Hyperapp](https://github.com/hyperapp/hyperapp)
 - [Ultradom](https://github.com/jorgebucaran/ultradom)
 
@@ -75,6 +76,25 @@ If you want to change the style based on the props, you can do it by passing a f
 const Button = style("button")(props => ({
   color: props.color
 }))
+```
+
+You can also use `@keyframes` animation importing `keyframes` function.
+
+```js
+import picostyle, { keyframes } from 'picostyle'
+
+const zoom = keyframes({
+  from: {
+    transform: 'scale(0.5)'
+  },
+  to: {
+    transform: 'scale(2)'
+  },
+})
+
+const Container = ps('div')({
+  animation: `${zoom} 300ms`,
+})
 ```
 
 You can now use the styled components to build your app.
