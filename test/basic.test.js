@@ -1,5 +1,5 @@
 import { h } from "hyperapp"
-import picostyle from "../src"
+import picostyle, { keyframes } from "../src"
 
 // import create and attach a dom to global namespace
 import { JSDOM } from "jsdom"
@@ -49,31 +49,33 @@ test("basic style object", () => {
 test("1 level descendant combinator", () => {
   const Test = style("table", {
     color: "red",
-    tr: {
+    "& tr": {
       color: "white"
     }
   })
   expectClassNameAndCssText(
     Test(),
     "p2",
-    ".p2 {color: red;},.p2 tr {color: white;}"
+    ".p2 tr {color: white;},.p2 {color: red;}"
   )
 })
+
+// This works in the browser, but not here. I don't know why
 
 test("2 level descendant combinator", () => {
   const Test = style("table", {
     color: "red",
-    tr: {
-      color: "white",
-      td: {
-        color: "blue"
-      }
+    "& tr": {
+      color: "white"
+    },
+    "& tr td": {
+      color: "blue"
     }
   })
   expectClassNameAndCssText(
     Test(),
     "p3",
-    ".p3 {color: red;},.p3 tr {color: white;},.p3 tr td {color: blue;}"
+    ".p3 tr td {color: blue;},.p3 tr {color: white;},.p3 {color: red;}"
   )
 })
 
@@ -83,7 +85,7 @@ test("class selector", () => {
       color: "white"
     }
   })
-  expectClassNameAndCssText(Test(), "p4", ".p4 {},.p4.active {color: white;}")
+  expectClassNameAndCssText(Test(), "p4", ".p4.active {color: white;},.p4 {}")
 })
 
 test("universal selector (asterisk)", () => {
@@ -92,7 +94,7 @@ test("universal selector (asterisk)", () => {
       color: "white"
     }
   })
-  expectClassNameAndCssText(Test(), "p5", ".p5 {},.p5* {color: white;}")
+  expectClassNameAndCssText(Test(), "p5", ".p5* {color: white;},.p5 {}")
 })
 
 test("pseudo-element", () => {
@@ -104,7 +106,7 @@ test("pseudo-element", () => {
   expectClassNameAndCssText(
     Test(),
     "p6",
-    ".p6 {},.p6::before {content: attr(data-value) '%';}"
+    ".p6::before {content: attr(data-value) '%';},.p6 {}"
   )
 })
 
@@ -114,7 +116,7 @@ test("pseudo-class", () => {
       color: "white"
     }
   })
-  expectClassNameAndCssText(Test(), "p7", ".p7 {},.p7:hover {color: white;}")
+  expectClassNameAndCssText(Test(), "p7", ".p7:hover {color: white;},.p7 {}")
 })
 
 test("pseudo-class", () => {
@@ -126,7 +128,7 @@ test("pseudo-class", () => {
   expectClassNameAndCssText(
     Test(),
     "p8",
-    ".p8 {},@media screen and (min-width: 480px) {.p8 {width: auto;}}"
+    "@media screen and (min-width: 480px) {.p8 {width: auto;}},.p8 {}"
   )
 })
 
@@ -140,8 +142,8 @@ test("class name bundling", () => {
 
   expectClassNameAndCssText(
     Test(),
-    "p9 pa",
-    ".pa {color: white;},.p9 {background-color: red;}"
+    "p9 p10",
+    ".p10 {color: white;},.p9 {background-color: red;}"
   )
 })
 
@@ -151,8 +153,8 @@ test("decl as function", () => {
   })
   expectClassNameAndCssText(
     Test({ color: "tomato" }),
-    "pb",
-    ".pb {color: tomato;}"
+    "p11",
+    ".p11 {color: tomato;}"
   )
 })
 
@@ -161,5 +163,27 @@ test("extend component", () => {
   const Test = style(Div, {
     backgroundColor: "red"
   })
-  expectClassNameAndCssText(Test({}), "pc", ".pc {background-color: red;}")
+  expectClassNameAndCssText(Test({}), "p12", ".p12 {background-color: red;}")
+})
+test("create keyframes", () => {
+  const zoom = keyframes({
+    from: {
+      transform: "scale(0.5)"
+    },
+    to: {
+      transform: "scale(1)"
+    }
+  })
+  const Test = style("div", {
+    animation: zoom + " 300ms"
+  })
+  expectClassNameAndCssText(
+    Test(),
+    "p14",
+    // Identations is as provided by cssRulesAsText function
+    `.p14 {animation: p13 300ms;},@keyframes p13 { 
+  from {transform: scale(0.5);} 
+  to {transform: scale(1);} 
+}`
+  )
 })

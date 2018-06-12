@@ -1,6 +1,5 @@
 var _id = 0
 var sheet = document.head.appendChild(document.createElement("style")).sheet
-var serialize = JSON.stringify.bind(null)
 
 function hyphenate(str) {
   return str.replace(/[A-Z]/g, "-$&").toLowerCase()
@@ -9,50 +8,50 @@ function hyphenate(str) {
 function insert(rule) {
   sheet.insertRule(rule, sheet.cssRules.length)
 }
-
-function createRule(className, decls, media) {
-  var newDecls = []
-  for (var property in decls) {
-    typeof decls[property] !== "object" &&
-      newDecls.push(hyphenate(property) + ":" + decls[property] + ";")
-  }
-  var rule = "." + className + "{" + newDecls.join("") + "}"
-  return media ? media + "{" + rule + "}" : rule
+function createStyle(obj) {
+  var id = "p" + _id++
+  parse(obj, "." + id).forEach(insert)
+  return id
+}
+function wrap(stringToWrap, wrapper) {
+  return wrapper + "{" + stringToWrap + "}"
 }
 
-function concat(str1, str2) {
-  return str1 + (/^\w/.test(str2) ? " " : "") + str2
-}
-
-function parse(decls, child, media, className) {
-  child = child || ""
-  className = className || "p" + (_id++).toString(36)
-
-  for (var property in decls) {
-    var value = decls[property]
-    if (typeof value === "object") {
-      var nextMedia = /^@/.test(property) ? property : null
-      var nextChild = nextMedia ? child : concat(child, property)
-      parse(value, nextChild, nextMedia, className)
+function parse(obj, classname, isInsideObj) {
+  var arr = [""]
+  isInsideObj = isInsideObj || 0
+  for (var prop in obj) {
+    var value = obj[prop]
+    prop = hyphenate(prop)
+    // Same as typeof value === 'object', but smaller
+    if (!value.sub) {
+      if (/^(:| >|\.|\*)/.test(prop)) {
+        prop = classname + prop
+      }
+      // replace & in "&:hover", "p>&"
+      prop = prop.replace(/&/g, classname)
+      arr.push(
+        wrap(parse(value, classname, 1 && !/^@/.test(prop)).join(""), prop)
+      )
+    } else {
+      arr[0] += prop + ":" + value + ";"
     }
   }
-
-  insert(createRule(concat(className, child), decls, media))
-  return className
+  if (!isInsideObj) {
+    arr[0] = wrap(arr[0], classname)
+  }
+  return arr
 }
-
 export default function(h) {
   return function(nodeName) {
     var cache = {}
     return function(decls) {
-      var isDeclsFunction = typeof decls === "function"
-
       return function(attributes, children) {
         attributes = attributes || {}
         children = attributes.children || children
-        var nodeDecls = isDeclsFunction ? decls(attributes) : decls
-        var key = serialize(nodeDecls)
-        cache[key] || (cache[key] = parse(nodeDecls))
+        var nodeDecls = typeof decls == "function" ? decls(attributes) : decls
+        var key = JSON.stringify(nodeDecls)
+        cache[key] || (cache[key] = createStyle(nodeDecls))
         attributes.class = [attributes.class, cache[key]]
           .filter(Boolean)
           .join(" ")
@@ -60,4 +59,9 @@ export default function(h) {
       }
     }
   }
+}
+export function keyframes(obj) {
+  var id = "p" + _id++
+  insert(wrap(parse(obj, id, 1).join(""), "@keyframes " + id))
+  return id
 }
