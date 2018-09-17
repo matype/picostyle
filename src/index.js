@@ -24,7 +24,7 @@ function parse(obj, classname, isInsideObj) {
     var value = obj[prop]
     prop = hyphenate(prop)
     // Same as typeof value === 'object', but smaller
-    if (!value.sub) {
+    if (!value.sub && !Array.isArray(value)) {
       if (/^(:|>|\.|\*)/.test(prop)) {
         prop = classname + prop
       }
@@ -34,7 +34,10 @@ function parse(obj, classname, isInsideObj) {
         wrap(parse(value, classname, 1 && !/^@/.test(prop)).join(""), prop)
       )
     } else {
-      arr[0] += prop + ":" + value + ";"
+      value = Array.isArray(value) ? value : [value]
+      value.forEach((value) => {
+        arr[0] += prop + ":" + value + ";"
+      })
     }
   }
   if (!isInsideObj) {
