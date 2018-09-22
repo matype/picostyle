@@ -187,3 +187,10 @@ test("create keyframes", () => {
 }`
   )
 })
+
+test("array syntax", () => {
+  const Test = style("div", {
+    position: ["sticky", "-webkit-sticky"]
+  })()
+  expect(cssRulesAsText(document.styleSheets[0])).toMatch("position")
+})
