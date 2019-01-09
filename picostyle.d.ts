@@ -21,5 +21,7 @@ interface Styles {
     [key: string]: any;
 }
 
+export const keyframes: (obj: StyleProps) => string;
+
 export default function picostyle(vdom: createNode): (element: string | Component<object>) =>
     (styles: Styles | StyleProps) => (...children: any[]) => VNode | string | number | null;
