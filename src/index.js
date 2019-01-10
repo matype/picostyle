@@ -8,11 +8,13 @@ function hyphenate(str) {
 function insert(rule) {
   sheet.insertRule(rule, sheet.cssRules.length)
 }
+
 function createStyle(obj) {
   var id = "p" + _id++
   parse(obj, "." + id).forEach(insert)
   return id
 }
+
 function wrap(stringToWrap, wrapper) {
   return wrapper + "{" + stringToWrap + "}"
 }
@@ -35,8 +37,8 @@ function parse(obj, classname, isInsideObj) {
       )
     } else {
       value = Array.isArray(value) ? value : [value]
-      value.forEach((value) => {
-        arr[0] += prop + ":" + value + ";"
+      value.forEach(function(value) {
+        return (arr[0] += prop + ":" + value + ";")
       })
     }
   }
@@ -45,6 +47,7 @@ function parse(obj, classname, isInsideObj) {
   }
   return arr
 }
+
 export default function(h) {
   return function(nodeName) {
     var cache = {}
@@ -63,6 +66,7 @@ export default function(h) {
     }
   }
 }
+
 export function keyframes(obj) {
   var id = "p" + _id++
   insert(wrap(parse(obj, id, 1).join(""), "@keyframes " + id))
