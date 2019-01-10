@@ -1,12 +1,15 @@
-import uglify from "rollup-plugin-uglify"
+import { uglify } from "rollup-plugin-uglify"
 
 export default {
-  entry: "src/index.js",
-  dest: "dist/picostyle.js",
-  format: "umd",
-  moduleName: 'picostyle',
+  input: "src/index.js",
+  output: {
+    file: "dist/picostyle.js",
+    format: "umd",
+    name: 'picostyle',
+    sourceMap: true,
+    exports: 'named',
+  },
   plugins: [
     uglify()
   ],
-  sourceMap: true,
 }
