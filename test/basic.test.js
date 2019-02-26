@@ -142,7 +142,7 @@ test("class name bundling", () => {
 
   expectClassNameAndCssText(
     Test(),
-    "p9 p10",
+    "p10 p9",
     ".p10 {color: white;},.p9 {background-color: red;}"
   )
 })
