@@ -58,7 +58,7 @@ export default function(h) {
         var nodeDecls = typeof decls == "function" ? decls(attributes) : decls
         var key = JSON.stringify(nodeDecls)
         cache[key] || (cache[key] = createStyle(nodeDecls))
-        attributes.class = [attributes.class, cache[key]]
+        attributes.class = [cache[key], attributes.class]
           .filter(Boolean)
           .join(" ")
         return h(nodeName, attributes, children)
