@@ -64,7 +64,7 @@ const Wrapper = style("div")({
 })
 
 // Styling an un-styled component
-const Component = text => h("h1", {}, text)
+const Component = (props, text) => h("h1", props, text)
 const Text = style(Component)({
   color: "#fff",
 })
