@@ -7,9 +7,9 @@ function hyphenate(str) {
 
 function createStyle(rules, isKeyframes) {
   var id = "p" + _id++
-  var prefix = (isKeyframes ? "@keyframes " : ".") + id 
+  var name = (isKeyframes ? "@keyframes " : ".") + id 
   rules.forEach(function (rule){
-    sheet.insertRule(prefix + rule, sheet.cssRules.length)
+    sheet.insertRule(name + rule, sheet.cssRules.length)
   })
   return id
 }
