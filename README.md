@@ -10,6 +10,8 @@
 
 Picostyle is a 0.4 KB CSS-in-JS library for use with frameworks that expose an `h` function.
 
+Update: Picostyle is now faster by removing JSON.stringify and supports a new css function that returns a class name for Components that support a class attribute property.
+
 [Try it Online](https://codepen.io/morishitter/pen/aEpGYN?editors=0010)
 
 - **🚀 The smallest CSS-in-JS library**: Only 0.4 KB (minified & gzipped).
@@ -47,11 +49,21 @@ Then find it in `window.picostyle`.
 
 Picostyle will work with any framework that exposes an `h` function. When you pass Picostyle an function `h` it returns a higher order function (HOF) that you can use exactly like the `h` you pass it.
 
+Picostyle can now return an object with the style function and a new css fucntion when the new "return object" flag is true
+
 ```js
 import { h } from "some-framework"
 import picostyle from "picostyle"
 
 const style = picostyle(h)
+```
+Or
+```js
+import { h } from "some-framework"
+import picostyle from "picostyle"
+
+const returnObject = true
+const { style, css } = picostyle(h, returnObject)
 ```
 
 The HOF accepts a tag name (or an _unstyled_ component) and returns a function that accepts JSON styles.
@@ -68,7 +80,16 @@ const Component = (props, text) => h("h1", props, text)
 const Text = style(Component)({
   color: "#fff",
 })
+
+// Styling a component that supports a class name attribute
+const Component = (state) => (
+  h("h1",
+    { 
+      class: css( { color: "#fff" } )
+    }
+)
 ```
+
 If you want to change the style based on the props, you can do it by passing a function, instead of JSON styles.
 
 ```js
