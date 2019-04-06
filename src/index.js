@@ -46,7 +46,7 @@ function parse(obj, isInsideObj) {
 
 export default function(h, retObj) {
   var cache = {}
-  return retObj ? { style, css } : style
+  return retObj ? { style: style, css: css } : style
   function style(nodeName) {
     return function (decls) {
       return function(attributes, children) {
