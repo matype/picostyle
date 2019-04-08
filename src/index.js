@@ -5,11 +5,17 @@ function hyphenate(str) {
   return str.replace(/[A-Z]/g, "-$&").toLowerCase()
 }
 
-function createStyle(rules, isKeyframes) {
+function createStyle(rules, prefix) {
   var id = "p" + _id++
-  var name = (isKeyframes ? "@keyframes " : ".") + id 
-  rules.forEach(function (rule){
-    sheet.insertRule(name + rule, sheet.cssRules.length)
+  var name = prefix + id 
+  rules.forEach(function (rule) {
+    if (/^@/.test(rule)) {
+      var start = rule.indexOf("{") + 1
+      rule = rule.slice(0, start) + name + rule.slice(start)
+    } else {
+      rule = name + rule
+    }
+    sheet.insertRule(rule, sheet.cssRules.length)
   })
   return id
 }
@@ -63,11 +69,11 @@ export default function(h, retObj) {
   function css(decls){
     var rules = parse(decls)
     var key = rules.join("")
-    return cache[key] || (cache[key] = createStyle(rules, 0))
+    return cache[key] || (cache[key] = createStyle(rules, "."))
   }
 }
 
 export function keyframes(obj) {
   var rule = wrap(parse(obj, 1).join(""),"")
-  return createStyle([rule], 1)
+  return createStyle([rule], "@keyframes ")
 }
