@@ -48,9 +48,10 @@ function parse(obj, isInsideObj) {
   return arr
 }
 
-export default function(h, retObj) {
+export default function(h, options) {
   var cache = {}
-  return retObj ? { style: style, css: css } : style
+  options = options || {}
+  return options.returnObject ? { style: style, css: css } : style
   function style(nodeName) {
     return function(decls) {
       return function(attributes, children) {
