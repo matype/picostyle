@@ -1,9 +1,9 @@
 # Picostyle
 
-[![445 gzip][gzip-badge]][bundlesize]
+[![482 gzip][gzip-badge]][bundlesize]
 [![Build Status][travis-badge]][travis]
 
-[gzip-badge]: https://img.shields.io/badge/minified%20&%20gzipped-445%20B-brightgreen.svg
+[gzip-badge]: https://img.shields.io/badge/minified%20&%20gzipped-482%20B-brightgreen.svg
 [bundlesize]: https://github.com/siddharthkp/bundlesize
 [travis-badge]: https://travis-ci.org/morishitter/picostyle.svg
 [travis]: https://travis-ci.org/morishitter/picostyle
@@ -15,7 +15,7 @@ Update: Picostyle is now faster by removing JSON.stringify and supports a new cs
 [Try it Online](https://codepen.io/morishitter/pen/aEpGYN?editors=0010)
 
 - **🚀 The smallest CSS-in-JS library**: Only 0.4 KB (minified & gzipped).
-- **👏 Zero dependencies**: And under 70 LOC.
+- **👏 Zero dependencies**: And under 80 LOC.
 - **💅 Styled components**: Gives you a styled component like [styled-components](https://www.styled-components.com/) that y'all love.
 
 Currently tested with:
