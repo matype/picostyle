@@ -9,6 +9,10 @@ global.document = dom.window.document
 
 // picostyle helper function
 const style = (nodeName, decls) => picostyle(h)(nodeName)(decls)
+const options = {
+  returnObject: true
+}
+const { css } = picostyle(h, options)
 
 function cssRulesAsText(stylesheet) {
   return []
@@ -193,4 +197,10 @@ test("array syntax", () => {
     position: ["sticky", "-webkit-sticky"]
   })()
   expect(cssRulesAsText(document.styleSheets[0])).toMatch("position")
+})
+
+test("custom prefix", () => {
+  expect(css({
+      color: "orange"
+    }, 'testPrefix')).toEqual("testPrefix16")
 })

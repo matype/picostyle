@@ -5,9 +5,9 @@ function hyphenate(str) {
   return str.replace(/[A-Z]/g, "-$&").toLowerCase()
 }
 
-function createStyle(rules, prefix) {
-  var id = "p" + _id++
-  var name = prefix + id
+function createStyle(rules, cssType, p) {
+  var id = p + _id++
+  var name = cssType + id
   rules.forEach(function(rule) {
     if (/^@/.test(rule)) {
       var start = rule.indexOf("{") + 1
@@ -51,6 +51,7 @@ function parse(obj, isInsideObj) {
 export default function(h, options) {
   var cache = {}
   options = options || {}
+  cache.prefix = options.prefix || "p"
   return options.returnObject ? { style: style, css: css } : style
   function style(nodeName) {
     return function(decls) {
@@ -58,21 +59,22 @@ export default function(h, options) {
         attributes = attributes || {}
         children = attributes.children || children
         var nodeDecls = typeof decls == "function" ? decls(attributes) : decls
-        attributes.class = [css(nodeDecls), attributes.class]
+        attributes.class = [css(nodeDecls, cache.prefix), attributes.class]
           .filter(Boolean)
           .join(" ")
         return h(nodeName, attributes, children)
       }
     }
   }
-  function css(decls) {
+  function css(decls, prefix) {
     var rules = parse(decls)
-    var key = rules.join("")
-    return cache[key] || (cache[key] = createStyle(rules, "."))
+    var p = prefix || cache.prefix
+    var key = p + rules.join("")
+    return cache[key] || (cache[key] = createStyle(rules, ".", p))
   }
 }
 
 export function keyframes(obj) {
   var rule = wrap(parse(obj, 1).join(""), "")
-  return createStyle([rule], "@keyframes ")
+  return createStyle([rule], "@keyframes ", "p")
 }

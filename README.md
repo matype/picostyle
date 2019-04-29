@@ -9,8 +9,7 @@
 [travis]: https://travis-ci.org/morishitter/picostyle
 
 Picostyle is a 0.4 KB CSS-in-JS library for use with frameworks that expose an `h` function.
-
-Update: Picostyle is now faster by removing JSON.stringify and supports a new css function that returns a class name for Components that support a class attribute property.
+Picostyle is now faster and supports an options function.
 
 [Try it Online](https://codepen.io/morishitter/pen/aEpGYN?editors=0010)
 
@@ -45,25 +44,39 @@ Otherwise, download the [latest release](https://github.com/picostyle/picostyle/
 
 Then find it in `window.picostyle`.
 
+## Options
+
+```javascript
+{
+  returnObject: true, //returns an object with the style and css functions
+  prefix: "p" //define a custom prefix in place of the "p" prefix
+}
+```
+
 ## Usage
 
 Picostyle will work with any framework that exposes an `h` function. When you pass Picostyle an function `h` it returns a higher order function (HOF) that you can use exactly like the `h` you pass it.
 
 Picostyle can now return an object with the style function and a new css fucntion when the new "return object" flag is true
 
+### New Usage with options
+```js
+import { h } from "some-framework"
+import picostyle from "picostyle"
+
+const options = {
+  returnObject: true,
+  prefix: "p"
+}
+const { style, css } = picostyle(h, options)
+```
+
+### Original usage:
 ```js
 import { h } from "some-framework"
 import picostyle from "picostyle"
 
 const style = picostyle(h)
-```
-Or
-```js
-import { h } from "some-framework"
-import picostyle from "picostyle"
-
-const returnObject = true
-const { style, css } = picostyle(h, returnObject)
 ```
 
 The HOF accepts a tag name (or an _unstyled_ component) and returns a function that accepts JSON styles.
@@ -80,13 +93,16 @@ const Component = (props, text) => h("h1", props, text)
 const Text = style(Component)({
   color: "#fff",
 })
-
+```
+Styling a component with the css function
+```js
 // Styling a component that supports a class name attribute
 const Component = (state) => (
   h("h1",
     { 
-      class: css( { color: "#fff" } )
-    }
+      class: css( { color: "#fff" }, "customPrefix" ) //optional custom prefix for debugging
+    },
+    state
 )
 ```
 
