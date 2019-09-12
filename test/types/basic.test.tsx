@@ -1,17 +1,17 @@
-import {h, patch} from "ultradom";
-import picostyle from "../../";
+import { h, patch } from "ultradom";
+import picostyle, { StyleFunction } from "../../";
 
-const ps = picostyle(h);
+const ps = picostyle(h) as StyleFunction;
 
 function view(state: any) {
   const keyColor = "#f07";
 
   const Text = ps("h1")({
     ":hover": {
-        transform: "scale(1.3)",
+      transform: "scale(1.3)",
     },
     "@media (max-width: 450px)": {
-        fontSize: "32px",
+      fontSize: "32px",
     },
     "color": "#fff",
     "cursor": "pointer",

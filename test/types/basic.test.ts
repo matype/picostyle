@@ -1,24 +1,24 @@
-import {h} from "ultradom";
-import picostyle from "../..";
+import { h } from "ultradom";
+import picostyle, { StyleFunction } from "../..";
 
-const style = picostyle(h);
+const style = picostyle(h) as StyleFunction;
 
 const Wrapper = style("div")({
-    background: "#000",
-    minHeight: "100vh",
+  background: "#000",
+  minHeight: "100vh",
 });
 
 const Component = (text: any) => h("h1", {}, text);
 const Text = style(Component)({
-    color: "#fff",
+  color: "#fff",
 });
 
 const Button = style("button")((props) => ({
-    color: props.color,
+  color: props.color,
 }));
 
 const App = h("main", null,
-    Wrapper({}, Text("Scoping CSS is hard")),
-    Wrapper({}, Text("Not with styled components!")),
-    Wrapper({color: "red"}, Button("I'm red!")),
+  Wrapper({}, Text("Scoping CSS is hard")),
+  Wrapper({}, Text("Not with styled components!")),
+  Wrapper({ color: "red" }, Button("I'm red!")),
 );
