@@ -6,7 +6,7 @@ function hyphenate(str) {
 }
 
 function createStyle(rules, prefix, options) {
-  var id = ((options && options.prefix) ? options.prefix : "p") + _id++
+  var id = ((options && options.prefix) ? (options.prefix + '-') : "p") + _id++
   var name = prefix + id
   rules.forEach(function(rule) {
     if (/^@/.test(rule)) {
