@@ -1,4 +1,5 @@
 var _id = 0
+var _ids = {}
 var sheet = document.head.appendChild(document.createElement("style")).sheet
 
 function hyphenate(str) {
@@ -6,8 +7,12 @@ function hyphenate(str) {
 }
 
 function createStyle(rules, prefix, options) {
-  var id = ((options && options.prefix) ? (options.prefix + '-') : "p") + _id++
+  if(options && options.prefix)  {
+    _ids[options.prefix] = _ids[options.prefix] || 0
+  }
+  var id = (options && options.prefix) ? (options.prefix + '-' + _ids[options.prefix]++) : ("p" + _id++)
   var name = prefix + id
+
   rules.forEach(function(rule) {
     if (/^@/.test(rule)) {
       var start = rule.indexOf("{") + 1
