@@ -1,13 +1,19 @@
 var _id = 0
+var _ids = {}
 var sheet = document.head.appendChild(document.createElement("style")).sheet
 
 function hyphenate(str) {
   return str.replace(/[A-Z]/g, "-$&").toLowerCase()
 }
 
-function createStyle(rules, prefix) {
-  var id = "p" + _id++
+function createStyle(rules, prefix, options) {
+  if(options && options.prefix)  {
+    _ids[options.prefix] = _ids[options.prefix] || 0
+  }
+  // var id = (options && options.prefix) ? (options.prefix + '-' + _ids[options.prefix]++) : ("p" + _id++)
+  var id = (options && options.prefix) ? (options.prefix + '-' + _id++) : ("p" + _id++)
   var name = prefix + id
+
   rules.forEach(function(rule) {
     if (/^@/.test(rule)) {
       var start = rule.indexOf("{") + 1
@@ -68,11 +74,11 @@ export default function(h, options) {
   function css(decls) {
     var rules = parse(decls)
     var key = rules.join("")
-    return cache[key] || (cache[key] = createStyle(rules, "."))
+    return cache[key] || (cache[key] = createStyle(rules, ".", options))
   }
 }
 
-export function keyframes(obj) {
+export function keyframes(obj, options) {
   var rule = wrap(parse(obj, 1).join(""), "")
-  return createStyle([rule], "@keyframes ")
+  return createStyle([rule], "@keyframes ", options)
 }
