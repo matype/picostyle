@@ -10,7 +10,8 @@ function createStyle(rules, prefix, options) {
   if(options && options.prefix)  {
     _ids[options.prefix] = _ids[options.prefix] || 0
   }
-  var id = (options && options.prefix) ? (options.prefix + '-' + _ids[options.prefix]++) : ("p" + _id++)
+  // var id = (options && options.prefix) ? (options.prefix + '-' + _ids[options.prefix]++) : ("p" + _id++)
+  var id = (options && options.prefix) ? (options.prefix + '-' + _id++) : ("p" + _id++)
   var name = prefix + id
 
   rules.forEach(function(rule) {
