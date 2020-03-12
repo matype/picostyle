@@ -24,7 +24,7 @@ function wrap(stringToWrap, wrapper) {
   return wrapper + "{" + stringToWrap + "}"
 }
 
-function parse(obj, isInsideObj) {
+function serialize(obj, isInsideObj) {
   var arr = [""]
   isInsideObj = isInsideObj || 0
   for (var prop in obj) {
@@ -34,7 +34,7 @@ function parse(obj, isInsideObj) {
     if (!value.sub && !Array.isArray(value)) {
       // replace & in "&:hover", "p>&"
       prop = prop.replace(/&/g, "")
-      arr.push(wrap(parse(value, 1 && !/^@/.test(prop)).join(""), prop))
+      arr.push(wrap(serialize(value, 1 && !/^@/.test(prop)).join(""), prop))
     } else {
       value = Array.isArray(value) ? value : [value]
       value.forEach(function(value) {
@@ -55,19 +55,18 @@ export default function(h, options) {
   return options.returnObject ? { style: style, css: css } : style
   function style(nodeName) {
     return function(decls) {
-      return function(attributes, children) {
-        attributes = attributes || {}
-        children = attributes.children || children
-        var nodeDecls = typeof decls == "function" ? decls(attributes) : decls
-        attributes.class = [css(nodeDecls, cache.prefix), attributes.class]
+      return function(props) {
+        props = props || {}
+        var nodeDecls = typeof decls == "function" ? decls(props) : decls
+        props.class = [css(nodeDecls, cache.prefix), props.class]
           .filter(Boolean)
           .join(" ")
-        return h(nodeName, attributes, children)
+        return h(nodeName, props, props.children || [])
       }
     }
   }
   function css(decls, prefix) {
-    var rules = parse(decls)
+    var rules = serialize(decls)
     var p = prefix || cache.prefix
     var key = p + rules.join("")
     return cache[key] || (cache[key] = createStyle(rules, ".", p))
@@ -75,6 +74,6 @@ export default function(h, options) {
 }
 
 export function keyframes(obj) {
-  var rule = wrap(parse(obj, 1).join(""), "")
+  var rule = wrap(serialize(obj, 1).join(""), "")
   return createStyle([rule], "@keyframes ", "p")
 }

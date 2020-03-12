@@ -9,11 +9,10 @@
   "scripts": {
     "build": "npm run clear && rollup -c",
     "clear": "(rm -rf dist || true) && mkdir dist",
-    "format": "prettier --no-semi --write 'src/**/*.js' 'test/**/*.js'",
-    "lint": "prettier --no-semi -l 'src/**/*.js' 'test/**/*.js'",
-    "eslint": "node_modules/.bin/eslint -c .eslintrc.json src",
+    "format": "prettier --no-semi --write \"src/**/*.js\" \"test/**/*.js\"",
+    "lint": "prettier --no-semi -l \"src/**/*.js\" \"test/**/*.js\"",
+    "eslint": "eslint -c .eslintrc.json src",
     "prepublish": "npm run build",
-    "size-check": "npm run build && size-limit",
     "test": "jest --coverage --no-cache"
   },
   "repository": {
@@ -46,13 +45,6 @@
     "prettier": "^1.19.1",
     "rollup": "^1.31.1",
     "rollup-plugin-uglify": "^6.0.4",
-    "size-limit": "^4.0.1",
     "typescript": "^3.7.5"
-  },
-  "size-limit": [
-    {
-      "path": "dist/picostyle.js",
-      "limit": "999B"
-    }
-  ]
+  }
 }

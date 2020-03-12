@@ -29,7 +29,7 @@ function removeRules(stylesheet) {
 }
 
 function expectClassNameAndCssText(obj, className, cssAsText) {
-  expect(obj.attributes).toHaveProperty("class", className)
+  expect(obj.props).toHaveProperty("class", className)
   expect(cssRulesAsText(document.styleSheets[0])).toEqual(cssAsText)
 }
 
@@ -200,7 +200,12 @@ test("array syntax", () => {
 })
 
 test("custom prefix", () => {
-  expect(css({
-      color: "orange"
-    }, 'testPrefix')).toEqual("testPrefix16")
+  expect(
+    css(
+      {
+        color: "orange"
+      },
+      "testPrefix"
+    )
+  ).toEqual("testPrefix16")
 })
