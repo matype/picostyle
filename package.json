@@ -35,6 +35,8 @@
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
+    "@babel/preset-typescript": "^7.8.3",
     "@typescript-eslint/eslint-plugin": "^2.20.0",
     "@typescript-eslint/parser": "^2.20.0",
     "eslint": "^6.8.0",
@@ -52,9 +54,5 @@
       "path": "dist/picostyle.js",
       "limit": "999B"
     }
-  ],
-  "dependencies": {
-    "@babel/preset-react": "^7.8.3",
-    "@babel/preset-typescript": "^7.8.3"
-  }
+  ]
 }
