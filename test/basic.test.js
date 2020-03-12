@@ -2,10 +2,10 @@ import { h } from "hyperapp"
 import picostyle, { keyframes } from "../src"
 
 // import create and attach a dom to global namespace
-import { JSDOM } from "jsdom"
+// import { JSDOM } from "jsdom"
 
-const dom = new JSDOM()
-global.document = dom.window.document
+// const dom = new JSDOM()
+// global.document = dom.window.document
 
 // picostyle helper function
 const style = (nodeName, decls) => picostyle(h)(nodeName)(decls)
