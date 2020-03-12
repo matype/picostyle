@@ -11,7 +11,7 @@
     "clear": "(rm -rf dist || true) && mkdir dist",
     "format": "prettier --no-semi --write \"src/**/*.js\" \"test/**/*.js\"",
     "lint": "prettier --no-semi -l \"src/**/*.js\" \"test/**/*.js\"",
-    "eslint": "eslint -c .eslintrc.json src",
+    "eslint": "eslint -c .eslintrc.json src test",
     "prepublish": "npm run build",
     "test": "jest --coverage --no-cache"
   },
@@ -41,7 +41,6 @@
     "eslint": "^6.8.0",
     "hyperapp": "^2.0.4",
     "jest": "^25.1.0",
-    "jsdom": "^16.2.0",
     "prettier": "^1.19.1",
     "rollup": "^1.31.1",
     "rollup-plugin-uglify": "^6.0.4",

@@ -1,12 +1,6 @@
 import { h } from "hyperapp"
 import picostyle, { keyframes } from "../src"
 
-// import create and attach a dom to global namespace
-// import { JSDOM } from "jsdom"
-
-// const dom = new JSDOM()
-// global.document = dom.window.document
-
 // picostyle helper function
 const style = (nodeName, decls) => picostyle(h)(nodeName)(decls)
 const options = {
@@ -193,9 +187,9 @@ test("create keyframes", () => {
 })
 
 test("array syntax", () => {
-  const Test = style("div", {
+  style("div", {
     position: ["sticky", "-webkit-sticky"]
-  })()
+  })();
   expect(cssRulesAsText(document.styleSheets[0])).toMatch("position")
 })
 
