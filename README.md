@@ -62,8 +62,8 @@ Or
 import { h } from "some-framework"
 import picostyle from "picostyle"
 
-const returnObject = true
-const { style, css } = picostyle(h, returnObject)
+const options = { returnObject: true }
+const { style, css } = picostyle(h, options)
 ```
 
 The HOF accepts a tag name (or an _unstyled_ component) and returns a function that accepts JSON styles.
