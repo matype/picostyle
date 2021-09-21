@@ -6414,8 +6414,9 @@ timsort@^0.3.0:
   integrity sha1-QFQRqOfmM5/mTbmiNN4R3DHgK9Q=
 
 tmpl@1.0.x:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/tmpl/-/tmpl-1.0.4.tgz#23640dd7b42d00433911140820e5cf440e521dd1"
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/tmpl/-/tmpl-1.0.5.tgz#8683e0b902bb9c20c4f726e3c0b69f36518c07cc"
+  integrity sha512-3f0uOEAQwIqGuWW2MVzYg8fV/QNnc/IpuJNG837rLuczAaLVHslWHZQj4IGiEl5Hs3kkbhwL9Ab7Hrsmuj+Smw==
 
 to-arraybuffer@^1.0.0:
   version "1.0.1"
@@ -6589,11 +6590,6 @@ uglify-to-browserify@~1.0.0:
 uid-number@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/uid-number/-/uid-number-0.0.6.tgz#0ea10e8035e8eb5b8e4449f06da1c730663baa81"
-
-ultradom@^4.0.2:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/ultradom/-/ultradom-4.0.2.tgz#8db02eb50ba4ccf0d9b308bf2cc2beefe0dc7745"
-  integrity sha512-k7WQy//ObIa2NLOB6F//drtBGyLNK0pDo5XeVA37FkQhdcw0FYwEt2sRk3W914emdeuRi5OKfDAk87zDNAfu0g==
 
 union-value@^1.0.0:
   version "1.0.0"
