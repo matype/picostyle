@@ -39,7 +39,7 @@
     "babel-preset-env": "^1.7.0",
     "hyperapp": "^1.2.9",
     "jest": "^23.6.0",
-    "jsdom": "^13.1.0",
+    "jsdom": "^16.5.0",
     "prettier": "^1.15.3",
     "rollup": "^1.1.0",
     "rollup-plugin-uglify": "^6.0.0",
