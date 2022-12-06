@@ -5417,8 +5417,9 @@ qs@6.5.2, qs@~6.5.2:
   integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
 
 qs@~6.4.0:
-  version "6.4.0"
-  resolved "https://registry.yarnpkg.com/qs/-/qs-6.4.0.tgz#13e26d28ad6b0ffaa91312cd3bf708ed351e7233"
+  version "6.4.1"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.4.1.tgz#2bad97710a5b661c366b378b1e3a44a592ff45e6"
+  integrity sha512-LQy1Q1fcva/UsnP/6Iaa4lVeM49WiOitu2T4hZCyA/elLKu37L99qcBJk4VCCk+rdLvnMzfKyiN3SZTqdAZGSQ==
 
 querystring-es3@^0.2.0:
   version "0.2.1"
@@ -6589,11 +6590,6 @@ uglify-to-browserify@~1.0.0:
 uid-number@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/uid-number/-/uid-number-0.0.6.tgz#0ea10e8035e8eb5b8e4449f06da1c730663baa81"
-
-ultradom@^4.0.2:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/ultradom/-/ultradom-4.0.2.tgz#8db02eb50ba4ccf0d9b308bf2cc2beefe0dc7745"
-  integrity sha512-k7WQy//ObIa2NLOB6F//drtBGyLNK0pDo5XeVA37FkQhdcw0FYwEt2sRk3W914emdeuRi5OKfDAk87zDNAfu0g==
 
 union-value@^1.0.0:
   version "1.0.0"
